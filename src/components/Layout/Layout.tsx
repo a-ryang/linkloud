@@ -1,8 +1,9 @@
-import { Box, Loader } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 import Deferrer from "../Deferrer";
+import Spinner from "../Spinner";
 
 export default function Layout() {
   const location = useLocation();
@@ -16,9 +17,7 @@ export default function Layout() {
       <Suspense
         fallback={
           <Deferrer>
-            <div className="container mx-auto min-h-screen">
-              <Loader type="dots" />
-            </div>
+            <Spinner />
           </Deferrer>
         }
       >
