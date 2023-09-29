@@ -6,12 +6,13 @@ import { RouterProvider } from "react-router-dom";
 
 import { queryClient } from "./libs/react-query";
 import router from "./routes";
+import theme, { resolver } from "./styles/theme";
 
 export default function Providers() {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <MantineProvider>
+        <MantineProvider theme={theme} cssVariablesResolver={resolver}>
           <RouterProvider router={router} />
         </MantineProvider>
         <ReactQueryDevtools />
