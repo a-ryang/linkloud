@@ -1,27 +1,39 @@
-import { PropsWithChildren } from "react";
+import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
-function PrivateRoute({ children }: PropsWithChildren) {
-  return children;
-}
+import Layout from "@/components/Layout/Layout";
+import Menu from "@/features/members/routes/Menu";
+import Home from "@/features/misc/routes/Home";
 
-export const privateRoutes: RouteObject[] = [
+import ROUTES_PATH from "./routesPath";
+
+const Login = lazy(() => import("@/features/auth/routes/Login"));
+const NotFound = lazy(() => import("@/features/misc/routes/NotFound"));
+
+const publicRoutes: RouteObject[] = [
   {
     path: "",
-    element: (
-      <PrivateRoute>
-        <DefaultLayout />
-      </PrivateRoute>
-    ),
+    element: <Layout />,
     children: [
       {
-        path: ROUTE_PATH.LINK.REG,
-        element: <LinksReg />,
+        path: ROUTES_PATH.HOME,
+        element: <Home />,
+        index: true,
       },
       {
-        path: ROUTE_PATH.LIBRARY.LINKS,
-        element: <LibraryLinks />,
+        path: ROUTES_PATH.LOGIN,
+        element: <Login />,
+      },
+      {
+        path: ROUTES_PATH.MENU,
+        element: <Menu />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
 ];
+
+export default publicRoutes;
