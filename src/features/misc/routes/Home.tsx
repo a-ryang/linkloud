@@ -5,9 +5,11 @@ import GithubIcon from "@/components/Icons/GithubIcon";
 import BottomNav from "@/components/Layout/BottomNav";
 import SEO from "@/components/SEO";
 import ArticleCard from "@/features/articles/components/ArticleCard";
+import useAuth from "@/features/auth/hooks/useAuth";
 import ROUTES_PATH from "@/routes/routesPath";
 
 export default function Home() {
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <SEO
@@ -16,7 +18,7 @@ export default function Home() {
       />
       <div className="flex flex-col items-center min-h-screen">
         <div className="container flex-1">
-          <Hero />
+          <Hero isLoggedIn={isLoggedIn} />
           <section className="flex flex-col px-4">
             <h1 className="sr-only">링크 목록</h1>
             <ul className="flex flex-col gap-4 w-full">
@@ -42,12 +44,11 @@ export default function Home() {
   );
 }
 
-const Hero = () => {
+const Hero = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
-  const loggedIn = false;
 
-  const RenderButton = loggedIn ? (
+  const RenderButton = isLoggedIn ? (
     <Button
       component="a"
       href={ROUTES_PATH.CREATE_ARTICLE}

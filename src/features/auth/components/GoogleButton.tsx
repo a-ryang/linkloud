@@ -1,8 +1,29 @@
 import { Button, Text } from "@mantine/core";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
+
+import ROUTES_PATH from "@/routes/routesPath";
+
+import useAuth from "../hooks/useAuth";
 
 export default function GoogleButton() {
+  const { socialLogin } = useAuth();
+  const navigate = useNavigate();
+  const handleLogin = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      try {
+        await socialLogin({
+          socialType: "google",
+          code: codeResponse.code,
+        });
+        navigate(ROUTES_PATH.HOME);
+      } catch (e) {}
+    },
+    flow: "auth-code",
+  });
+
   return (
-    <Button fullWidth variant="default" radius="md">
+    <Button fullWidth variant="default" radius="md" onClick={handleLogin}>
       <GoogleIcon />
       <Text ml="md" size="sm">
         구글로 시작하기
