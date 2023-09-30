@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 
 import { refresh } from "@/features/auth/api/refresh";
-import setToken from "@/features/auth/utils/setToken";
+import { setAccessToken } from "@/features/auth/utils";
 
 import { instance } from ".";
 
@@ -49,7 +49,7 @@ export async function handleExpiredToken(
   return new Promise((resolve, reject) => {
     refresh()
       .then(({ accessToken }) => {
-        setToken(accessToken);
+        setAccessToken(accessToken);
 
         request.headers.Authorization = `Bearer ${accessToken}`;
 

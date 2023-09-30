@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import getToken from "@/features/auth/utils/getToken";
+import { getAccessToken } from "@/features/auth/utils";
 
 import ApiError from "../error/ApiError";
 import BaseError from "../error/BaseError";
@@ -13,7 +13,7 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const token = getToken();
+  const token = getAccessToken();
   if (token) config.headers.Authorization = `Bearer ${token}`;
 
   return config;
@@ -32,6 +32,8 @@ instance.interceptors.response.use(
     if (e.response?.data?.["message"]) {
       const request = e.config;
       const message = e.response?.data?.["message"] as string;
+
+      console.log("message ", message);
 
       if (message === "Expired access token") {
         handleExpiredToken(e, request);

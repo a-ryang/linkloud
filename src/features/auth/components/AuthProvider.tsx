@@ -8,18 +8,15 @@ import {
 
 import Deferrer from "@/components/Deferrer";
 import Spinner from "@/components/Spinner";
-import { LOCAL_TOKEN_KEY } from "@/configs";
 import { getMe } from "@/features/members/api/getMe";
 import ApiError from "@/libs/error/ApiError";
-import { removeFromLocalStorage } from "@/libs/stroage/localStorage";
 
 import { logout as logoutReqeust } from "../api/logout";
 import {
   SocialLoginRequest,
   socialLogin as socialLoginRequest,
 } from "../api/socialLogin";
-import getToken from "../utils/getToken";
-import setToken from "../utils/setToken";
+import { clearAccessToken, getAccessToken, setAccessToken } from "../utils";
 
 const INITIAL_USER: Member = { id: 0, nickname: "", picture: "", role: "USER" };
 
@@ -57,7 +54,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       const { accessToken } = await socialLoginRequest(data);
       const user = await getMe(accessToken);
 
-      setToken(accessToken);
+      setAccessToken(accessToken);
       setUser(user);
       setIsLoggedIn(true);
     } catch (e) {
@@ -68,8 +65,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   };
 
   const logout = async () => {
-    removeFromLocalStorage(LOCAL_TOKEN_KEY);
+    clearAccessToken();
     setUser({ ...INITIAL_USER });
+    setIsLoggedIn(false);
     await logoutReqeust();
   };
 
@@ -100,7 +98,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       }
     };
 
-    const token = getToken() ?? "";
+    const token = getAccessToken() ?? "";
     init(token);
   }, []);
 
