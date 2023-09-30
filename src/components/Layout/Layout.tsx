@@ -3,6 +3,7 @@ import { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 import Deferrer from "../Deferrer";
+import GlobalErrorBoundary from "../Errors/GlobalErrorBoundary";
 import Spinner from "../Spinner";
 
 export default function Layout() {
@@ -21,7 +22,9 @@ export default function Layout() {
           </Deferrer>
         }
       >
-        <Outlet />
+        <GlobalErrorBoundary>
+          <Outlet />
+        </GlobalErrorBoundary>
       </Suspense>
     </Box>
   );
