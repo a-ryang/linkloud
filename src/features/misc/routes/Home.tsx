@@ -1,15 +1,16 @@
-import { Button, Title, Text, useMantineTheme } from "@mantine/core";
+import { Button, Title, Text, useMantineTheme, Skeleton } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 import GithubIcon from "@/components/Icons/GithubIcon";
 import BottomNav from "@/components/Layout/BottomNav";
 import SEO from "@/components/SEO";
-import ArticleCard from "@/features/articles/components/ArticleCard";
+import ArticleCards from "@/features/articles/components/ArticleCards";
 import useAuth from "@/features/auth/hooks/useAuth";
 import ROUTES_PATH from "@/routes/routesPath";
 
 export default function Home() {
   const { isLoggedIn } = useAuth();
+
   return (
     <>
       <SEO
@@ -21,20 +22,7 @@ export default function Home() {
           <Hero isLoggedIn={isLoggedIn} />
           <section className="flex flex-col px-4">
             <h1 className="sr-only">링크 목록</h1>
-            <ul className="flex flex-col gap-4 w-full">
-              <li>
-                <ArticleCard />
-              </li>
-              <li>
-                <ArticleCard />
-              </li>
-              <li>
-                <ArticleCard />
-              </li>
-              <li>
-                <ArticleCard />
-              </li>
-            </ul>
+            <ArticleCards />
           </section>
         </div>
         <Footer />

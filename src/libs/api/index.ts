@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as qs from "qs";
 
 import { getAccessToken } from "@/features/auth/utils";
 
@@ -10,6 +11,7 @@ import { handleExpiredToken } from "./helper";
 export const instance = axios.create({
   baseURL: "/api",
   timeout: 3 * 1000,
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
 
 instance.interceptors.request.use((config) => {

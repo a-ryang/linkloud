@@ -18,9 +18,11 @@ import {
   Trash,
 } from "@phosphor-icons/react";
 
-interface Props {}
+interface Props {
+  article: Article;
+}
 
-export default function ArticleCard({}: Props) {
+export default function ArticleCard({ article }: Props) {
   return (
     <Card
       withBorder
@@ -32,7 +34,7 @@ export default function ArticleCard({}: Props) {
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between">
           <Title order={1} size="h5">
-            제목
+            {article.title}
           </Title>
           <Menu withinPortal position="bottom-end" shadow="sm">
             <Menu.Target>
@@ -54,12 +56,12 @@ export default function ArticleCard({}: Props) {
         </Group>
       </Card.Section>
       <div className="mt-2">
-        <Anchor size="sm">https://example.com</Anchor>
+        <Anchor size="sm">{article.url}</Anchor>
       </div>
       <Card.Section mt="sm" inheritPadding>
         <p>
           <Text component="span" c="gray.7" mr="xs">
-            내용
+            {article.description}
           </Text>
           <span className="inline-flex gap-1">
             <Text component="span" c="gray.7" fw="500">
@@ -79,7 +81,7 @@ export default function ArticleCard({}: Props) {
           <Flex gap="xs">
             <div>
               <Text component="span" c="gray.7" fw="500">
-                111
+                {article.views}
               </Text>
               <Text component="span" c="gray.7">
                 {" "}
@@ -88,7 +90,7 @@ export default function ArticleCard({}: Props) {
             </div>
             <div>
               <Text component="span" c="gray.7" fw="500">
-                111
+                {article.hearts}
               </Text>
               <Text component="span" c="gray.7">
                 {" "}
