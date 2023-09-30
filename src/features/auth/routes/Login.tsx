@@ -8,12 +8,17 @@ import {
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 
+import NotFound from "@/features/misc/routes/NotFound";
 import ROUTES_PATH from "@/routes/routesPath";
 
 import GoogleButton from "../components/GoogleButton";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
   const theme = useMantineTheme();
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) return <NotFound />;
 
   return (
     <Center mih="100vh" style={{ background: theme.colors.gray["1"] }}>
