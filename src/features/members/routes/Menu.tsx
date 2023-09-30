@@ -4,10 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 import BottomNav from "@/components/Layout/BottomNav";
 import SEO from "@/components/SEO";
+import useAuth from "@/features/auth/hooks/useAuth";
 import ROUTES_PATH from "@/routes/routesPath";
 
 export default function Menu() {
+  const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate(ROUTES_PATH.HOME, { replace: true });
+  };
 
   return (
     <>
@@ -18,19 +25,34 @@ export default function Menu() {
             <Title ml="md">메뉴</Title>
           </div>
           <ul className="max-w-xs py-4 rounded-xl bg-white">
-            {items.map((item) => (
-              <li key={item.label}>
+            {isLoggedIn && (
+              <li className="px-1">
                 <NavLink
-                  href={item.herf}
-                  label={item.label}
-                  leftSection={item.icon}
+                  href={ROUTES_PATH.LOGOUT}
+                  label={"로그아웃"}
+                  leftSection={<SignOut />}
+                  className="rounded-lg"
                   onClick={(e) => {
                     e.preventDefault();
-                    navigate(item.herf);
+                    handleLogout();
                   }}
                 />
               </li>
-            ))}
+            )}
+            {!isLoggedIn && (
+              <li className="px-1">
+                <NavLink
+                  href={ROUTES_PATH.LOGIN}
+                  label={"로그인"}
+                  leftSection={<SignIn />}
+                  className="rounded-lg"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(ROUTES_PATH.LOGIN);
+                  }}
+                />
+              </li>
+            )}
           </ul>
         </div>
       </Center>
@@ -38,18 +60,3 @@ export default function Menu() {
     </>
   );
 }
-
-const items = [
-  {
-    label: "로그인",
-    icon: <SignIn />,
-    herf: ROUTES_PATH.LOGIN,
-    needAuth: false,
-  },
-  {
-    label: "로그아웃",
-    icon: <SignOut />,
-    herf: ROUTES_PATH.LOGOUT,
-    needAuth: true,
-  },
-];
