@@ -88,7 +88,7 @@ export default function ArticleCard({ article }: Props) {
                 hits
               </Text>
             </div>
-            <div>
+            {/* <div>
               <Text component="span" c="gray.7" fw="500">
                 {article.hearts}
               </Text>
@@ -96,9 +96,9 @@ export default function ArticleCard({ article }: Props) {
                 {" "}
                 likes
               </Text>
-            </div>
+            </div> */}
           </Flex>
-          <div>
+          {/* <div>
             <ActionIcon
               aria-label="좋아요"
               variant="subtle"
@@ -114,7 +114,7 @@ export default function ArticleCard({ article }: Props) {
                 }}
               />
             </ActionIcon>
-          </div>
+          </div> */}
         </Flex>
       </Card.Section>
     </Card>
