@@ -1,7 +1,8 @@
-import { PropsWithChildren, lazy } from "react";
-import { RouteObject } from "react-router-dom";
+import { PropsWithChildren, lazy, useEffect } from "react";
+import { RouteObject, useNavigate } from "react-router-dom";
 
 import Layout from "@/components/Layout/Layout";
+import useAuth from "@/features/auth/hooks/useAuth";
 
 import ROUTES_PATH from "./routesPath";
 
@@ -10,6 +11,18 @@ const CreateArticle = lazy(() => import("@/features/articles/routes/Create"));
 const EditArticle = lazy(() => import("@/features/articles/routes/Edit"));
 
 function PrivateRoute({ children }: PropsWithChildren) {
+  const { isLoading, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate(ROUTES_PATH.LOGIN);
+    }
+  }, [isLoggedIn, navigate]);
+
+  if (isLoading) return null;
+  if (!isLoggedIn) return null;
+
   return children;
 }
 
