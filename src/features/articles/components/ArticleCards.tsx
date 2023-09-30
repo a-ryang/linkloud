@@ -1,7 +1,8 @@
 import { Skeleton, Text } from "@mantine/core";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { useGetArticles } from "../hooks/getArticles";
+import { useGetArticles } from "../api/getArticles";
+import useArticle from "../hooks/useArticle";
 
 import ArticleCard from "./ArticleCard";
 
@@ -10,6 +11,7 @@ export default function ArticleCards() {
     { size: 10, sortBy: "latest" },
     { getNextPageParam: (lastPage) => lastPage.nextItemId || undefined },
   );
+  const handleClick = useArticle();
 
   if (articleQuery.isLoading)
     return (
@@ -52,7 +54,12 @@ export default function ArticleCards() {
         {articleQuery.data.pages.map((page) =>
           page.items.map((item) => (
             <li key={item.id}>
-              <ArticleCard article={item} />
+              <ArticleCard
+                article={item}
+                onClick={() => {
+                  handleClick(item.id);
+                }}
+              />
             </li>
           )),
         )}

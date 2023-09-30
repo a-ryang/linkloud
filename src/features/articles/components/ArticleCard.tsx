@@ -13,16 +13,17 @@ import {
   BookBookmark,
   BookOpen,
   DotsThree,
-  Heart,
+  // Heart,
   PencilSimple,
   Trash,
 } from "@phosphor-icons/react";
 
 interface Props {
   article: Article;
+  onClick?: (id: number) => void;
 }
 
-export default function ArticleCard({ article }: Props) {
+export default function ArticleCard({ article, onClick }: Props) {
   return (
     <Card
       withBorder
@@ -30,6 +31,7 @@ export default function ArticleCard({ article }: Props) {
       shadow="sm"
       radius="md"
       className="cursor-pointer active:bg-gray-50"
+      onClick={onClick ? () => onClick(article.id) : undefined}
     >
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between">
@@ -38,7 +40,14 @@ export default function ArticleCard({ article }: Props) {
           </Title>
           <Menu withinPortal position="bottom-end" shadow="sm">
             <Menu.Target>
-              <ActionIcon aria-label="더보기" variant="subtle" color="gray">
+              <ActionIcon
+                aria-label="더보기"
+                variant="subtle"
+                color="gray"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 <DotsThree size={24} />
               </ActionIcon>
             </Menu.Target>
