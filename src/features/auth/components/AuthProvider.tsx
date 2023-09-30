@@ -11,11 +11,7 @@ import Spinner from "@/components/Spinner";
 import { LOCAL_TOKEN_KEY } from "@/configs";
 import { getMe } from "@/features/members/api/getMe";
 import ApiError from "@/libs/error/ApiError";
-import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
-  saveToLocalStorage,
-} from "@/libs/stroage/localStorage";
+import { removeFromLocalStorage } from "@/libs/stroage/localStorage";
 
 import { logout as logoutReqeust } from "../api/logout";
 import {
@@ -23,12 +19,12 @@ import {
   socialLogin as socialLoginRequest,
 } from "../api/socialLogin";
 import getToken from "../utils/getToken";
+import setToken from "../utils/setToken";
 
 const INITIAL_USER: Member = { id: 0, nickname: "", picture: "", role: "USER" };
 
 interface AuthState {
   user: Member;
-  token?: string;
   error?: Error;
   isLoggedIn: boolean;
   isLoading: boolean;
@@ -41,7 +37,6 @@ interface AuthAction {
 
 export const AuthContext = createContext<AuthState & AuthAction>({
   user: { ...INITIAL_USER },
-  token: "",
   error: undefined,
   isLoggedIn: false,
   isLoading: true,
@@ -51,9 +46,6 @@ export const AuthContext = createContext<AuthState & AuthAction>({
 
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState({ ...INITIAL_USER });
-  const [token, setToken] = useState(
-    getFromLocalStorage<string>(LOCAL_TOKEN_KEY) ?? "",
-  );
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isMountedRef = useRef(false);
@@ -65,7 +57,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       const { accessToken } = await socialLoginRequest(data);
       const user = await getMe(accessToken);
 
-      saveToLocalStorage(LOCAL_TOKEN_KEY, accessToken);
       setToken(accessToken);
       setUser(user);
       setIsLoggedIn(true);
@@ -78,7 +69,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   const logout = async () => {
     removeFromLocalStorage(LOCAL_TOKEN_KEY);
-    setToken("");
     setUser({ ...INITIAL_USER });
     await logoutReqeust();
   };
@@ -118,7 +108,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         user,
-        token,
         isLoading,
         isLoggedIn,
         socialLogin,
