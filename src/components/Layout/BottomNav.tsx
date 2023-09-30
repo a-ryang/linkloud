@@ -6,11 +6,7 @@ import ROUTES_PATH from "@/routes/routesPath";
 
 export default function BottomNav() {
   const { pathname } = useLocation();
-  // const navigate = useNavigate();
-
-  // const handleClick = (e: React.MouseEvent) => {
-  //   e.preventDefault();
-  // };
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed bottom-0 w-full pt-1 pb-2 px-4 border-t border-border bg-white z-10">
@@ -24,10 +20,10 @@ export default function BottomNav() {
                 size="lg"
                 w="100%"
                 variant={pathname === item.href ? "filled" : "subtle"}
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   handleClick()
-                // }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(item.href);
+                }}
               >
                 <span className="sr-only">{item.name}</span>
                 {pathname === item.href ? item.icons[0] : item.icons[1]}
