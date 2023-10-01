@@ -1,32 +1,56 @@
-import {
-  Button,
-  Center,
-  CloseButton,
-  TagsInput,
-  TextInput,
-  Title,
-  Image,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Center, Title } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
 import { useState } from "react";
+import { z } from "zod";
 
 import BottomNav from "@/components/Layout/BottomNav";
 import SEO from "@/components/SEO";
 
+import DetailsInputStep from "../components/DetailInputStep";
+import LinkInputStep from "../components/LinkInputStep";
+
+export interface FormValues {
+  url: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+const schema = z.object({
+  url: z.string().url("올바른 링크를 입력해주세요"),
+  title: z
+    .string()
+    .nonempty("제목을 입력하세요")
+    .min(2, "제목은 2~20자를 입력해주세요")
+    .max(20, "제목은 2~20자를 입력해주세요"),
+  description: z.string().max(200, "최대 200자까지 입력해주세요"),
+  tags: z
+    .string()
+    .array()
+    .max(5, "태그는 최대 5개까지만 입력해주세요")
+    .refine((tags) => {
+      const uniqueTags = new Set(tags);
+      return uniqueTags.size === tags.length;
+    }, "중복된 태그는 입력할 수 없어요"),
+});
+
 export default function CreateArticle() {
   const [step, setStep] = useState(1);
-  const [link, setLink] = useState("");
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: {
-      link: "",
+      url: "",
       title: "",
       description: "",
       tags: [],
     },
+    validate: zodResolver(schema),
   });
 
-  const handleClickNext = () => {
+  const handleClickNext = (og: OG, url: string) => {
     setStep((prev) => prev + 1);
+    form.setFieldValue("url", og.url ? og.url : url);
+    form.setFieldValue("title", og.title);
+    form.setFieldValue("description", og.description);
   };
 
   const handleClickPrev = () => {
@@ -41,121 +65,15 @@ export default function CreateArticle() {
           <div className="my-6">
             <Title ml="md">새 링크 등록</Title>
           </div>
-          <form className="flex flex-col gap-4">
-            {step === 1 && (
-              <>
-                <TextInput
-                  autoComplete="off"
-                  label="링크"
-                  value={link}
-                  placeholder="등록하려는 링크를 입력해주세요"
-                  size="md"
-                  radius="md"
-                  rightSectionPointerEvents="all"
-                  rightSection={
-                    <CloseButton
-                      aria-label="링크 입력 지우기"
-                      onClick={() => setLink("")}
-                      style={{ display: link.length > 0 ? undefined : "none" }}
-                    />
-                  }
-                  className="flex-1"
-                  onChange={(e) => setLink(e.currentTarget.value)}
-                />
-                <Button
-                  aria-label="다음"
-                  type="button"
-                  fullWidth
-                  mt="sm"
-                  onClick={handleClickNext}
-                >
-                  다음
-                </Button>
-              </>
-            )}
-            {step === 2 && (
-              <>
-                <Image src="https://picsum.photos/200/300" h={48} w="auto" />
-                <TextInput
-                  label="링크"
-                  disabled
-                  value={link}
-                  placeholder="등록하려는 링크를 입력해주세요"
-                  size="md"
-                  radius="md"
-                  rightSectionPointerEvents="all"
-                  rightSection={
-                    <CloseButton
-                      aria-label="링크 입력 지우기"
-                      onClick={() => setLink("")}
-                      style={{ display: link.length > 0 ? undefined : "none" }}
-                    />
-                  }
-                  onChange={(e) => setLink(e.currentTarget.value)}
-                />
-                <TextInput
-                  label="제목"
-                  placeholder="제목을 입력해주세요"
-                  size="md"
-                  radius="md"
-                  withAsterisk
-                  rightSectionPointerEvents="all"
-                  rightSection={
-                    <CloseButton
-                      aria-label="제목 입력 지우기"
-                      onClick={() => setLink("")}
-                      style={{ display: link.length > 0 ? undefined : "none" }}
-                    />
-                  }
-                  {...form.getInputProps("title")}
-                />
-                <TextInput
-                  label="설명"
-                  placeholder="설명을 입력해주세요"
-                  size="md"
-                  radius="md"
-                  rightSectionPointerEvents="all"
-                  rightSection={
-                    <CloseButton
-                      aria-label="설명 입력 지우기"
-                      onClick={() => setLink("")}
-                      style={{ display: link.length > 0 ? undefined : "none" }}
-                    />
-                  }
-                  {...form.getInputProps("description")}
-                />
-                <TagsInput
-                  label="엔터를 눌러 태그를 등록해보세요"
-                  description="최대 5개까지 등록할 수 있어요"
-                  placeholder="태그를 등록해보세요"
-                  maxTags={5}
-                  size="md"
-                  radius="md"
-                />
-                <div className="flex gap-4">
-                  <Button
-                    aria-label="이전"
-                    type="button"
-                    mt="sm"
-                    fullWidth
-                    variant="light"
-                    onClick={handleClickPrev}
-                  >
-                    이전
-                  </Button>
-                  <Button
-                    aria-label="등록"
-                    type="submit"
-                    mt="sm"
-                    fullWidth
-                    onClick={handleClickNext}
-                  >
-                    등록
-                  </Button>
-                </div>
-              </>
-            )}
-          </form>
+          {step === 1 && (
+            <LinkInputStep
+              value={form.values.url}
+              onClickNext={handleClickNext}
+            />
+          )}
+          {step === 2 && (
+            <DetailsInputStep form={form} onPrev={handleClickPrev} />
+          )}
         </div>
       </Center>
       <BottomNav />

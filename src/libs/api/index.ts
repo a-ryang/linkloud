@@ -5,6 +5,7 @@ import { getAccessToken } from "@/features/auth/utils";
 
 import ApiError from "../error/ApiError";
 import BaseError from "../error/BaseError";
+import ServerError from "../error/ServerError";
 
 import { handleExpiredToken } from "./helper";
 
@@ -51,7 +52,7 @@ instance.interceptors.response.use(
       return Promise.reject(new BaseError("Timeout Error", "Network timeout"));
     }
 
-    return Promise.reject(new BaseError("Unknown Error", e.message));
+    return Promise.reject(new ServerError(e.message));
   },
 );
 
