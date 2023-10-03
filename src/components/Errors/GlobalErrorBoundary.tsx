@@ -34,8 +34,8 @@ export default class GlobalErrorBoundary extends Component<
   }
 
   render() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { hasError, message } = this.state;
+    // const { hasError, message } = this.state;
+    const { hasError } = this.state;
     const { fallback, children } = this.props;
 
     if (hasError) {

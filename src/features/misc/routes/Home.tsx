@@ -1,4 +1,4 @@
-import { Button, Title, Text, useMantineTheme, Skeleton } from "@mantine/core";
+import { Button, Title, Text, useMantineTheme } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 import GithubIcon from "@/components/Icons/GithubIcon";
