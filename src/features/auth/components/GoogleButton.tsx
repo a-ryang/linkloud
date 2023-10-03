@@ -17,7 +17,9 @@ export default function GoogleButton() {
           code: codeResponse.code,
         });
         navigate(ROUTES_PATH.HOME);
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     },
     flow: "auth-code",
   });
