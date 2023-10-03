@@ -31,7 +31,11 @@ const schema = z.object({
     .refine((tags) => {
       const uniqueTags = new Set(tags);
       return uniqueTags.size === tags.length;
-    }, "중복된 태그는 입력할 수 없어요"),
+    }, "중복된 태그는 입력할 수 없어요")
+    .refine(
+      (tags) => tags.every((tag) => tag.length <= 20),
+      "태그는 최대 20자까지 입력할 수 있어요",
+    ),
 });
 
 export default function CreateArticle() {
