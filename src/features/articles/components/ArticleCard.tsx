@@ -1,22 +1,9 @@
-import {
-  ActionIcon,
-  Card,
-  Group,
-  Menu,
-  Text,
-  Title,
-  Anchor,
-  Flex,
-} from "@mantine/core";
-import {
-  Book,
-  BookBookmark,
-  BookOpen,
-  DotsThree,
-  // Heart,
-  PencilSimple,
-  Trash,
-} from "@phosphor-icons/react";
+import { Card, Group, Text, Title, Anchor, Flex } from "@mantine/core";
+
+import useAuth from "@/features/auth/hooks/useAuth";
+
+import ArticleMenuDropdown from "./ArticleMenuDropdown";
+import ArticleTags from "./ArticleTags";
 
 interface Props {
   article: Article;
@@ -24,6 +11,8 @@ interface Props {
 }
 
 export default function ArticleCard({ article, onClick }: Props) {
+  const { isLoggedIn } = useAuth();
+
   return (
     <Card
       withBorder
@@ -38,30 +27,13 @@ export default function ArticleCard({ article, onClick }: Props) {
           <Title order={1} size="h5">
             {article.title}
           </Title>
-          <Menu withinPortal position="bottom-end" shadow="sm">
-            <Menu.Target>
-              <ActionIcon
-                aria-label="더보기"
-                variant="subtle"
-                color="gray"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <DotsThree size={24} />
-              </ActionIcon>
-            </Menu.Target>
-
-            <Menu.Dropdown>
-              <Menu.Item leftSection={<BookOpen />}>읽는 중</Menu.Item>
-              <Menu.Item leftSection={<BookBookmark />}>읽음</Menu.Item>
-              <Menu.Item leftSection={<Book />}>읽기 해제</Menu.Item>
-              <Menu.Item leftSection={<PencilSimple />}>수정</Menu.Item>
-              <Menu.Item leftSection={<Trash />} color="red">
-                삭제
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
+          {isLoggedIn && (
+            <ArticleMenuDropdown
+              id={article.id}
+              readStatus={article.readStatus}
+              isMy={article.author}
+            />
+          )}
         </Group>
       </Card.Section>
       <div className="mt-2">
@@ -72,17 +44,7 @@ export default function ArticleCard({ article, onClick }: Props) {
           <Text component="span" c="gray.7" mr="xs">
             {article.description}
           </Text>
-          <span className="inline-flex gap-1">
-            <Text component="span" c="gray.7" fw="500">
-              #태그
-            </Text>
-            <Text component="span" c="gray.7" fw="500">
-              #태그
-            </Text>
-            <Text component="span" c="gray.7" fw="500">
-              #태그
-            </Text>
-          </span>
+          <ArticleTags tags={article.tags} />
         </p>
       </Card.Section>
       <Card.Section inheritPadding mt="sm" pb="md">

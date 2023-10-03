@@ -46,9 +46,13 @@ interface Article {
   description: string;
   views: number;
   hearts: number;
+  readStatus: ArticleReadStatus;
   tags: Tag[];
   ogImage: string | null;
+  author?: boolean;
 }
+
+type ArticleReadStatus = "UNREAD" | "READING" | "READ";
 
 interface Tag {
   id: number;
