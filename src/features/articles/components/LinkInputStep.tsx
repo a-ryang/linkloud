@@ -47,6 +47,7 @@ export default function LinkInputStep({ value = "", onClickNext }: Props) {
       className="flex flex-col gap-4"
     >
       <TextInput
+        aria-label="링크 입력란"
         autoComplete="off"
         label="링크"
         {...form.getInputProps("url")}

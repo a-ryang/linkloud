@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ApiError from "@/libs/error/ApiError";
 import ROUTES_PATH from "@/routes/routesPath";
 
-import { useCreateArticle } from "../api/createArticle";
+import useCreateArticle from "../hooks/useCreateArticle";
 import { FormValues } from "../routes/Create";
 
 interface Props {
@@ -22,13 +22,13 @@ interface Props {
 
 export default function DetailsInputStep({ form, onPrev }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const articleCreateMutation = useCreateArticle();
+  const createArticle = useCreateArticle();
   const navigate = useNavigate();
 
   const handleClickCreate = async () => {
     try {
       setIsLoading(true);
-      await articleCreateMutation.mutateAsync(form.values);
+      await createArticle(form.values);
       navigate(ROUTES_PATH.MY_ARTICLES);
     } catch (e) {
       if (e instanceof ApiError) {
@@ -47,6 +47,7 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
       onSubmit={form.onSubmit(() => handleClickCreate())}
     >
       <TextInput
+        aria-label="링크 입력란"
         label="링크"
         disabled
         placeholder="등록하려는 링크를 입력해주세요"
@@ -55,6 +56,7 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
         {...form.getInputProps("url")}
       />
       <TextInput
+        aria-label="제목 입력란"
         label="제목"
         placeholder="제목을 입력해주세요"
         size="md"
@@ -73,6 +75,7 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
         {...form.getInputProps("title")}
       />
       <Textarea
+        aria-label="설명 입력란"
         label="설명"
         placeholder="설명을 입력해주세요"
         size="md"
@@ -90,12 +93,14 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
         {...form.getInputProps("description")}
       />
       <TagsInput
+        aria-label="태그 입력란"
         label="엔터를 눌러 태그를 등록해보세요"
         description="최대 5개까지 등록할 수 있어요"
         placeholder="태그를 등록해보세요"
         maxTags={5}
         size="md"
         radius="md"
+        {...form.getInputProps("tags")}
       />
       <div className="flex gap-4">
         <Button
