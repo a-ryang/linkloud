@@ -64,7 +64,7 @@ export async function handleExpiredToken(
   });
 }
 
-async function handleApiRefreshing(e: unknown, request: AxiosRequestConfig) {
+async function handleApiRefreshing(_e: unknown, request: AxiosRequestConfig) {
   return new Promise((resolve, reject) => {
     failedApiQueue.push({ resolve, reject });
   })

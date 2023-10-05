@@ -36,7 +36,7 @@ export function useUpdateReadStatus() {
       query: UpdateReadStatusQuery;
     }) => updateReadStatus(memberId, articleId, query),
     {
-      onSuccess: (data, variables) => {
+      onSuccess: (_data, variables) => {
         queryClient.invalidateQueries({
           queryKey: ["my-articles", variables.memberId],
         });
