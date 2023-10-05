@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -18,6 +19,7 @@ export default function Providers() {
         <MantineProvider theme={theme} cssVariablesResolver={resolver}>
           <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <AuthProvider>
+              <Notifications position="top-center" />
               <RouterProvider router={router} />
             </AuthProvider>
           </GoogleOAuthProvider>
