@@ -1,4 +1,5 @@
 import { ActionIcon, Menu } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import {
   Book,
   BookBookmark,
@@ -7,9 +8,11 @@ import {
   PencilSimple,
   Trash,
 } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
 
 import useAuth from "@/features/auth/hooks/useAuth";
 import { useUpdateReadStatus } from "@/features/members/api/updateReadStatus";
+import ROUTES_PATH from "@/routes/routesPath";
 
 interface Props {
   id: number;
@@ -19,18 +22,26 @@ interface Props {
 
 export default function ArticleMenuDropdown({ id, readStatus, isMy }: Props) {
   const updateReadStatusMutation = useUpdateReadStatus();
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleUpdateReadStatus = (
     e: React.MouseEvent,
     readStatus: ArticleReadStatus,
   ) => {
     e.stopPropagation();
+
+    if (!isLoggedIn) {
+      navigate(ROUTES_PATH.LOGIN);
+      return;
+    }
+
     updateReadStatusMutation.mutate({
       memberId: user.id,
       articleId: id,
       query: { readStatus },
     });
+    notifications.show({ message: "읽기 상태가 수정되었어요", color: "green" });
   };
 
   const renderMenuItems = () => {
@@ -110,7 +121,15 @@ export default function ArticleMenuDropdown({ id, readStatus, isMy }: Props) {
         {renderMenuItems()}
         {isMy && (
           <>
-            <Menu.Item leftSection={<PencilSimple />}>수정</Menu.Item>
+            <Menu.Item
+              leftSection={<PencilSimple />}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleClickEdit(id);
+              }}
+            >
+              수정
+            </Menu.Item>
             <Menu.Item leftSection={<Trash />} color="red">
               삭제
             </Menu.Item>
