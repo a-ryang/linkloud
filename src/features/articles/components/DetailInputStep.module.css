@@ -1,6 +1,6 @@
 .wrap {
   display: flex;
-  flex-direction: columns;
+  flex-direction: column;
   gap: 1rem;
 }
 
