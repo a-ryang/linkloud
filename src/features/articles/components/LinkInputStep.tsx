@@ -7,6 +7,8 @@ import ApiError from "@/libs/error/ApiError";
 
 import { getOpenGraph } from "../api/getOpenGraph";
 
+import classes from "./LinkInputStep.module.css";
+
 interface Props {
   value: string;
   onClickNext: (og: OG, url: string) => void;
@@ -44,7 +46,7 @@ export default function LinkInputStep({ value = "", onClickNext }: Props) {
   return (
     <form
       onSubmit={form.onSubmit(() => handleClickNext())}
-      className="flex flex-col gap-4"
+      className={classes.wrap}
     >
       <TextInput
         aria-label="링크 입력란"
@@ -64,7 +66,7 @@ export default function LinkInputStep({ value = "", onClickNext }: Props) {
             }}
           />
         }
-        className="flex-1"
+        className={classes.input}
       />
       <Button
         aria-label="다음"

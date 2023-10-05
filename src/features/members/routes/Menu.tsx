@@ -7,6 +7,8 @@ import SEO from "@/components/SEO";
 import useAuth from "@/features/auth/hooks/useAuth";
 import ROUTES_PATH from "@/routes/routesPath";
 
+import classes from "./Menu.module.css";
+
 export default function Menu() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
@@ -20,18 +22,18 @@ export default function Menu() {
     <>
       <SEO title="메뉴" />
       <Center mih="100%">
-        <div className="w-full max-w-xs">
-          <div className="my-6">
+        <div className={classes.wrap}>
+          <header className={classes.header}>
             <Title ml="md">메뉴</Title>
-          </div>
-          <ul className="max-w-xs py-4 rounded-xl bg-white">
+          </header>
+          <ul className={classes["nav-list"]}>
             {isLoggedIn && (
-              <li className="px-1">
+              <li className={classes["nav-wrap"]}>
                 <NavLink
                   href={ROUTES_PATH.LOGOUT}
                   label={"로그아웃"}
                   leftSection={<SignOut />}
-                  className="rounded-lg"
+                  className={classes.nav}
                   onClick={(e) => {
                     e.preventDefault();
                     handleLogout();
@@ -40,12 +42,12 @@ export default function Menu() {
               </li>
             )}
             {!isLoggedIn && (
-              <li className="px-1">
+              <li className={classes["nav-wrap"]}>
                 <NavLink
                   href={ROUTES_PATH.LOGIN}
                   label={"로그인"}
                   leftSection={<SignIn />}
-                  className="rounded-lg"
+                  className={classes.nav}
                   onClick={(e) => {
                     e.preventDefault();
                     navigate(ROUTES_PATH.LOGIN);

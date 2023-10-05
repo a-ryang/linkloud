@@ -15,6 +15,8 @@ import ROUTES_PATH from "@/routes/routesPath";
 import useCreateArticle from "../hooks/useCreateArticle";
 import { FormValues } from "../routes/Create";
 
+import classes from "./DetailInputStep.module.css";
+
 interface Props {
   form: UseFormReturnType<FormValues>;
   onPrev: () => void;
@@ -43,7 +45,7 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
 
   return (
     <form
-      className="flex flex-col gap-4"
+      className={classes.wrap}
       onSubmit={form.onSubmit(() => handleClickCreate())}
     >
       <TextInput
@@ -102,7 +104,7 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
         radius="md"
         {...form.getInputProps("tags")}
       />
-      <div className="flex gap-4">
+      <div className={classes["action-list"]}>
         <Button
           aria-label="이전"
           type="button"

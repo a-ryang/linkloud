@@ -1,0 +1,8 @@
+.card {
+  cursor: pointer;
+}
+
+.card:focus,
+.card:active {
+  background-color: var(--mantine-color-gray-0);
+}

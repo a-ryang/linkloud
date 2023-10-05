@@ -1,16 +1,19 @@
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { House, Link, List, Plus } from "@phosphor-icons/react";
+import clsx from "clsx";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import ROUTES_PATH from "@/routes/routesPath";
+
+import classes from "./BottomNav.module.css";
 
 export default function BottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed bottom-0 w-full pt-1 pb-2 px-4 border-t border-border bg-white z-10">
-      <ul className="container mx-auto flex justify-between gap-1">
+    <nav className={classes["bottom-nav"]}>
+      <ul className={clsx(classes["nav-list"], "container")}>
         {items.map((item) => (
           <li key={item.id} className="w-full">
             <Tooltip label={item.name}>

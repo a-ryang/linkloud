@@ -9,6 +9,8 @@ import SEO from "@/components/SEO";
 import DetailsInputStep from "../components/DetailInputStep";
 import LinkInputStep from "../components/LinkInputStep";
 
+import classes from "./Create.module.css";
+
 export interface FormValues {
   url: string;
   title: string;
@@ -65,10 +67,10 @@ export default function CreateArticle() {
     <>
       <SEO title="새로운 링크 등록하기" />
       <Center mih="100vh">
-        <div className="min-h-screen w-full max-w-xs">
-          <div className="my-6">
+        <div className={classes.wrap}>
+          <header className={classes.header}>
             <Title ml="md">새 링크 등록</Title>
-          </div>
+          </header>
           {step === 1 && (
             <LinkInputStep
               value={form.values.url}

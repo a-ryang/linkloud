@@ -1,4 +1,5 @@
 import { Button, Title, Text, useMantineTheme } from "@mantine/core";
+import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 
 import GithubIcon from "@/components/Icons/GithubIcon";
@@ -7,6 +8,8 @@ import SEO from "@/components/SEO";
 import ArticleCards from "@/features/articles/components/ArticleCards";
 import useAuth from "@/features/auth/hooks/useAuth";
 import ROUTES_PATH from "@/routes/routesPath";
+
+import classes from "./Home.module.css";
 
 export default function Home() {
   const { isLoggedIn } = useAuth();
@@ -17,10 +20,10 @@ export default function Home() {
         title="링클라우드 | 모두의 링크 라이브러리"
         description={`현재까지 n개의 링크가 모였어요`}
       />
-      <div className="flex flex-col items-center min-h-screen">
-        <div className="container flex-1">
+      <div className={classes.wrap}>
+        <div className={clsx("container flex-1", classes["wrap-inner"])}>
           <Hero isLoggedIn={isLoggedIn} />
-          <section className="flex flex-col px-4">
+          <section className={classes["article-section"]}>
             <h1 className="sr-only">링크 목록</h1>
             <ArticleCards />
           </section>
@@ -63,7 +66,7 @@ const Hero = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   );
 
   return (
-    <div className="flex flex-col items-center py-32 sm:py-52 px-4">
+    <div className={classes.hero}>
       <Title order={1} ta="center">
         유용한{" "}
         <span style={{ color: theme.colors.linkloudBlue["5"] }}>링크</span>를
@@ -77,12 +80,12 @@ const Hero = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
 const Footer = () => {
   return (
-    <footer className="w-full py-20">
-      <div className="flex flex-col items-center">
-        <div className="text-default-500 mt-2">
+    <footer className={classes.footer}>
+      <div className={classes["footer-inner"]}>
+        <div className={classes.copyright}>
           Copyright linkloud. All rights reserved
         </div>
-        <div className="mt-2">
+        <div className={classes.github}>
           <a
             target="_blank"
             href="https://github.com/linkloud/linkloud.io"

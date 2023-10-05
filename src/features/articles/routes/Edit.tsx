@@ -13,6 +13,8 @@ import { useState } from "react";
 import BottomNav from "@/components/Layout/BottomNav";
 import SEO from "@/components/SEO";
 
+import classes from "./Edit.module.css";
+
 export default function EditArticle() {
   const [link, setLink] = useState("");
   const form = useForm({
@@ -28,10 +30,10 @@ export default function EditArticle() {
     <>
       <SEO title="링크 수정하기" />
       <Center mih="100vh">
-        <div className="min-h-screen w-full max-w-xs">
-          <div className="my-6">
+        <div className={classes.wrap}>
+          <header className={classes.header}>
             <Title ml="md">링크 수정</Title>
-          </div>
+          </header>
           <form className="flex flex-col gap-4">
             <Image src="https://picsum.photos/200/300" h={48} w="auto" />
             <TextInput

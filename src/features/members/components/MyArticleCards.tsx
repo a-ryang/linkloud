@@ -1,18 +1,23 @@
 import { Skeleton, Text } from "@mantine/core";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { useGetArticles } from "../api/getArticles";
-import useArticle from "../hooks/useArticle";
+import ArticleCard from "@/features/articles/components/ArticleCard";
 
-import ArticleCard from "./ArticleCard";
-import classes from "./ArticleCards.module.css";
+import { SortBy, useGetMyArticles } from "../api/getMyArticles";
 
-export default function ArticleCards() {
-  const articleQuery = useGetArticles(
-    { size: 10, sortBy: "latest" },
+import classes from "./MyArticleCards.module.css";
+
+interface Props {
+  memberId: number;
+  sortBy: SortBy;
+}
+
+export default function MyArticleCards({ memberId, sortBy }: Props) {
+  const articleQuery = useGetMyArticles(
+    memberId,
+    { sortBy },
     { getNextPageParam: (lastPage) => lastPage.nextItemId || undefined },
   );
-  const handleClick = useArticle();
 
   if (articleQuery.isLoading)
     return (
@@ -55,12 +60,7 @@ export default function ArticleCards() {
         {articleQuery.data.pages.map((page) =>
           page.items.map((item) => (
             <li key={item.id}>
-              <ArticleCard
-                article={item}
-                onClick={() => {
-                  handleClick(item.id);
-                }}
-              />
+              <ArticleCard article={item} />
             </li>
           )),
         )}

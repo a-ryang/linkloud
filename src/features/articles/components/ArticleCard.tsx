@@ -1,7 +1,8 @@
-import { Card, Group, Text, Title, Anchor, Flex } from "@mantine/core";
+import { Card, Group, Text, Title, Anchor, Flex, Box } from "@mantine/core";
 
 import useAuth from "@/features/auth/hooks/useAuth";
 
+import classes from "./ArticleCard.module.css";
 import ArticleMenuDropdown from "./ArticleMenuDropdown";
 import ArticleTags from "./ArticleTags";
 
@@ -19,7 +20,7 @@ export default function ArticleCard({ article, onClick }: Props) {
       component="article"
       shadow="sm"
       radius="md"
-      className="cursor-pointer active:bg-gray-50"
+      className={classes.card}
       onClick={onClick ? () => onClick(article.id) : undefined}
     >
       <Card.Section withBorder inheritPadding py="xs">
@@ -36,9 +37,9 @@ export default function ArticleCard({ article, onClick }: Props) {
           )}
         </Group>
       </Card.Section>
-      <div className="mt-2">
+      <Box mt="xs">
         <Anchor size="sm">{article.url}</Anchor>
-      </div>
+      </Box>
       <Card.Section mt="sm" inheritPadding>
         <p>
           <Text component="span" c="gray.7" mr="xs">

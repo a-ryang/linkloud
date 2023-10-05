@@ -1,8 +1,11 @@
 import { Loader } from "@mantine/core";
+import clsx from "clsx";
+
+import classess from "./Spinner.module.css";
 
 export default function Spinner() {
   return (
-    <div className="container mx-auto min-h-screen flex justify-center items-center">
+    <div className={clsx(classess.wrap, "container")}>
       <Loader type="dots" />
     </div>
   );

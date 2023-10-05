@@ -1,5 +1,5 @@
-import "./styles/globals.css";
 import "@mantine/core/styles.css";
+import "./styles/globals.css";
 
 import Providers from "./Providers";
 

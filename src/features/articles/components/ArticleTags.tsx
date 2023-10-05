@@ -1,6 +1,8 @@
 import { Anchor } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
+import classes from "./ArticleTags.module.css";
+
 interface Props {
   tags: Tag[];
 }
@@ -10,7 +12,7 @@ export default function ArticleTags({ tags }: Props) {
   if (tags.length === 0) return null;
 
   return (
-    <span className="inline-flex gap-1">
+    <span className={classes["tag-list"]}>
       {tags.map((tag) => (
         <Anchor
           key={tag.id}

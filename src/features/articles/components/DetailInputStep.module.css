@@ -1,0 +1,10 @@
+.wrap {
+  display: flex;
+  flex-direction: columns;
+  gap: 1rem;
+}
+
+.action-list {
+  display: flex;
+  gap: 1rem;
+}
