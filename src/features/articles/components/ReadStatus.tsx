@@ -11,7 +11,7 @@ export default function ReadStatus({ status }: Props) {
   if (status === "READ")
     return (
       <Tooltip label="읽음">
-        <BookBookmark color={theme.colors.green["7"]} weight="fill" />
+        <BookBookmark color={theme.colors.orange["9"]} weight="fill" />
       </Tooltip>
     );
   if (status === "READING")
