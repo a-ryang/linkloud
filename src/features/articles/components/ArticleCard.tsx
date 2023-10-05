@@ -1,10 +1,9 @@
 import { Card, Group, Text, Title, Anchor, Flex, Box } from "@mantine/core";
 
-import useAuth from "@/features/auth/hooks/useAuth";
-
 import classes from "./ArticleCard.module.css";
 import ArticleMenuDropdown from "./ArticleMenuDropdown";
 import ArticleTags from "./ArticleTags";
+import ReadStatus from "./ReadStatus";
 
 interface Props {
   article: Article;
@@ -12,8 +11,6 @@ interface Props {
 }
 
 export default function ArticleCard({ article, onClick }: Props) {
-  const { isLoggedIn } = useAuth();
-
   return (
     <Card
       withBorder
@@ -25,21 +22,25 @@ export default function ArticleCard({ article, onClick }: Props) {
     >
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between">
-          <Title order={1} size="h5">
-            {article.title}
-          </Title>
-          {isLoggedIn && (
-            <ArticleMenuDropdown
-              id={article.id}
-              readStatus={article.readStatus}
-              isMy={article.author}
-            />
-          )}
+          <Flex align="center" gap="xs">
+            <ReadStatus status={article.readStatus} />
+            <Title order={1} size="h5">
+              {article.title}
+            </Title>
+          </Flex>
+
+          <ArticleMenuDropdown
+            id={article.id}
+            readStatus={article.readStatus}
+            isMy={article.author}
+          />
         </Group>
       </Card.Section>
+
       <Box mt="xs">
         <Anchor size="sm">{article.url}</Anchor>
       </Box>
+
       <Card.Section mt="sm" inheritPadding>
         <p>
           <Text component="span" c="gray.7" mr="xs">
