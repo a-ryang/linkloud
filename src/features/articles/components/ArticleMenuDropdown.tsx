@@ -44,6 +44,10 @@ export default function ArticleMenuDropdown({ id, readStatus, isMy }: Props) {
     notifications.show({ message: "읽기 상태가 수정되었어요", color: "green" });
   };
 
+  const handleClickEdit = (id: number) => {
+    navigate(`/links/edit/${id}`);
+  };
+
   const renderMenuItems = () => {
     switch (readStatus) {
       case "UNREAD":

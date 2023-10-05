@@ -5,7 +5,7 @@ const ROUTES_PATH = {
   MENU: "/menu",
   CREATE_ARTICLE: "/links/new",
   MY_ARTICLES: "/library/links",
-  EDIT_ARTICLE: "/links/edit",
+  EDIT_ARTICLE: "/links/edit/:id",
 };
 
 export default ROUTES_PATH;

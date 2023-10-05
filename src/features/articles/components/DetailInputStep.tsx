@@ -12,26 +12,38 @@ import { useNavigate } from "react-router-dom";
 import ApiError from "@/libs/error/ApiError";
 import ROUTES_PATH from "@/routes/routesPath";
 
-import useCreateArticle from "../hooks/useCreateArticle";
+import { CreateArticleDto, createArticle } from "../api/createArticle";
+import { UpdateArticleDto, updateArticle } from "../api/updateArticle";
 import { FormValues } from "../routes/Create";
 
 import classes from "./DetailInputStep.module.css";
 
+type Mode = "create" | "edit";
+
 interface Props {
+  id?: number;
   form: UseFormReturnType<FormValues>;
+  mode: Mode;
   onPrev: () => void;
 }
 
-export default function DetailsInputStep({ form, onPrev }: Props) {
+export default function DetailsInputStep({ id, form, mode, onPrev }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const createArticle = useCreateArticle();
   const navigate = useNavigate();
 
-  const handleClickCreate = async () => {
+  const handleSubmit = (mode: Mode) => {
     try {
       setIsLoading(true);
-      await createArticle(form.values);
-      navigate(ROUTES_PATH.MY_ARTICLES);
+      switch (mode) {
+        case "create": {
+          handleCreate(form.values);
+          break;
+        }
+        case "edit": {
+          if (id) handleEdit(id, form.values);
+          break;
+        }
+      }
     } catch (e) {
       if (e instanceof ApiError) {
         if (e.message === "Bad Request") {
@@ -43,10 +55,23 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
     }
   };
 
+  const handleCreate = async (data: CreateArticleDto) => {
+    await createArticle(data);
+    navigate(ROUTES_PATH.MY_ARTICLES);
+  };
+
+  const handleEdit = async (id: number, data: UpdateArticleDto) => {
+    await updateArticle(id, data);
+    navigate(ROUTES_PATH.MY_ARTICLES);
+  };
+
   return (
     <form
       className={classes.wrap}
-      onSubmit={form.onSubmit(() => handleClickCreate())}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(mode);
+      }}
     >
       <TextInput
         aria-label="링크 입력란"
@@ -123,7 +148,7 @@ export default function DetailsInputStep({ form, onPrev }: Props) {
           loading={isLoading}
           loaderProps={{ type: "dots" }}
         >
-          등록
+          {mode === "create" ? "등록" : "수정"}
         </Button>
       </div>
     </form>

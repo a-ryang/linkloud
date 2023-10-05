@@ -78,7 +78,11 @@ export default function CreateArticle() {
             />
           )}
           {step === 2 && (
-            <DetailsInputStep form={form} onPrev={handleClickPrev} />
+            <DetailsInputStep
+              mode="create"
+              form={form}
+              onPrev={handleClickPrev}
+            />
           )}
         </div>
       </Center>

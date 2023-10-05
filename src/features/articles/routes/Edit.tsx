@@ -1,30 +1,94 @@
-import {
-  Button,
-  Center,
-  CloseButton,
-  TagsInput,
-  TextInput,
-  Title,
-  Image,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useState } from "react";
+import { Center, Title } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { z } from "zod";
 
 import BottomNav from "@/components/Layout/BottomNav";
 import SEO from "@/components/SEO";
 
-import classes from "./Edit.module.css";
+import { getArticle } from "../api/getArticle";
+import DetailsInputStep from "../components/DetailInputStep";
+import LinkInputStep from "../components/LinkInputStep";
 
-export default function EditArticle() {
-  const [link, setLink] = useState("");
-  const form = useForm({
+import classes from "./Create.module.css";
+
+export interface FormValues {
+  url: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+const schema = z.object({
+  url: z.string().url("올바른 링크를 입력해주세요"),
+  title: z
+    .string()
+    .nonempty("제목을 입력하세요")
+    .min(2, "제목은 2~20자를 입력해주세요")
+    .max(20, "제목은 2~20자를 입력해주세요"),
+  description: z.string().max(200, "최대 200자까지 입력해주세요"),
+  tags: z
+    .string()
+    .array()
+    .max(5, "태그는 최대 5개까지만 입력해주세요")
+    .refine((tags) => {
+      const uniqueTags = new Set(tags);
+      return uniqueTags.size === tags.length;
+    }, "중복된 태그는 입력할 수 없어요")
+    .refine(
+      (tags) => tags.every((tag) => tag.length <= 20),
+      "태그는 최대 20자까지 입력할 수 있어요",
+    ),
+});
+
+export default function CreateArticle() {
+  const [step, setStep] = useState(2);
+  const form = useForm<FormValues>({
     initialValues: {
-      link: "",
+      url: "",
       title: "",
       description: "",
       tags: [],
     },
+    validate: zodResolver(schema),
   });
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleClickNext = (og: OG, url: string) => {
+    setStep((prev) => prev + 1);
+    form.setFieldValue("url", og.url ? og.url : url);
+    form.setFieldValue("title", og.title);
+    form.setFieldValue("description", og.description);
+  };
+
+  const handleClickPrev = () => {
+    setStep((prev) => prev - 1);
+  };
+
+  useEffect(() => {
+    const fetchArticle = async (id: number) => {
+      const data = await getArticle(id);
+
+      form.setFieldValue("title", data.title);
+      form.setFieldValue("url", data.url);
+      form.setFieldValue("description", data.description);
+      form.setFieldValue(
+        "tags",
+        data.tags.map((tag) => tag.name),
+      );
+    };
+
+    const articleId = Number(id);
+
+    if (isNaN(articleId)) {
+      navigate("404", { replace: true });
+      return;
+    }
+
+    fetchArticle(articleId);
+  }, []);
 
   return (
     <>
@@ -34,86 +98,20 @@ export default function EditArticle() {
           <header className={classes.header}>
             <Title ml="md">링크 수정</Title>
           </header>
-          <form className="flex flex-col gap-4">
-            <Image src="https://picsum.photos/200/300" h={48} w="auto" />
-            <TextInput
-              label="링크"
-              disabled
-              value={link}
-              placeholder="등록하려는 링크를 입력해주세요"
-              size="md"
-              radius="md"
-              rightSectionPointerEvents="all"
-              rightSection={
-                <CloseButton
-                  aria-label="링크 입력 지우기"
-                  onClick={() => setLink("")}
-                  style={{ display: link.length > 0 ? undefined : "none" }}
-                />
-              }
-              onChange={(e) => setLink(e.currentTarget.value)}
+          {step === 1 && (
+            <LinkInputStep
+              value={form.values.url}
+              onClickNext={handleClickNext}
             />
-            <TextInput
-              label="제목"
-              placeholder="제목을 입력해주세요"
-              size="md"
-              radius="md"
-              withAsterisk
-              rightSectionPointerEvents="all"
-              rightSection={
-                <CloseButton
-                  aria-label="제목 입력 지우기"
-                  onClick={() => setLink("")}
-                  style={{ display: link.length > 0 ? undefined : "none" }}
-                />
-              }
-              {...form.getInputProps("title")}
+          )}
+          {step === 2 && (
+            <DetailsInputStep
+              id={Number(id)}
+              mode="edit"
+              form={form}
+              onPrev={handleClickPrev}
             />
-            <TextInput
-              label="설명"
-              placeholder="설명을 입력해주세요"
-              size="md"
-              radius="md"
-              rightSectionPointerEvents="all"
-              rightSection={
-                <CloseButton
-                  aria-label="설명 입력 지우기"
-                  onClick={() => setLink("")}
-                  style={{ display: link.length > 0 ? undefined : "none" }}
-                />
-              }
-              {...form.getInputProps("description")}
-            />
-            <TagsInput
-              label="엔터를 눌러 태그를 등록해보세요"
-              description="최대 5개까지 등록할 수 있어요"
-              placeholder="태그를 등록해보세요"
-              maxTags={5}
-              size="md"
-              radius="md"
-            />
-            <div className="flex gap-4">
-              <Button
-                aria-label="이전"
-                type="button"
-                mt="sm"
-                fullWidth
-                variant="light"
-                onClick={() => {}}
-              >
-                취소
-              </Button>
-              <Button
-                aria-label="등록"
-                type="submit"
-                mt="sm"
-                fullWidth
-                onClick={() => {}}
-              >
-                수정
-              </Button>
-            </div>
-          </form>
+          )}
         </div>
       </Center>
       <BottomNav />
