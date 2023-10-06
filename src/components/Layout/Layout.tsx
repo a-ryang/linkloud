@@ -14,7 +14,7 @@ export default function Layout() {
   }, [location]);
 
   return (
-    <Box component="main" mih="100vh" bg="gray.1">
+    <Box mih="100vh">
       <Suspense
         fallback={
           <Deferrer>

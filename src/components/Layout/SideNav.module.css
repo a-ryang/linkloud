@@ -1,7 +1,6 @@
 .sidebar {
   display: none;
   justify-content: end;
-  background-color: var(--mantine-color-gray-1);
   border-right: 1px solid var(--mantine-color-gray-2);
   box-shadow: inset -10px 0 9px -7px rgba(0, 0, 0, 0.1);
 

@@ -1,50 +1,5 @@
-.wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-}
-
-.wrap-inner {
-  flex: 1 1 0;
-}
-
 .article-section {
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
-}
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8rem 1rem;
-}
-
-@media (min-width: 640px) {
-  .hero {
-    padding-top: 13rem;
-    padding-bottom: 13rem;
-  }
-}
-
-.footer {
-  width: 100%;
-  padding: 5rem 0;
-}
-
-.footer-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.copyright {
-  margin-top: 0.5rem;
-  color: var(--mantine-color-gray-7);
-}
-
-.github {
-  margin-top: 0.5rem;
 }
