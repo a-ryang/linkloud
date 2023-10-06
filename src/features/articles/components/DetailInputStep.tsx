@@ -30,7 +30,13 @@ export default function DetailsInputStep({
   onSubmit,
 }: Props) {
   return (
-    <form className={classes.wrap} onSubmit={onSubmit}>
+    <form
+      className={classes.wrap}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+    >
       <TextInput
         aria-label="링크 입력란"
         label="링크"
