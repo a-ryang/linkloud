@@ -1,7 +1,8 @@
-import { Skeleton, Text } from "@mantine/core";
 import InfiniteScroll from "react-infinite-scroller";
 
 import ArticleCard from "@/features/articles/components/ArticleCard";
+import ArticleNotFound from "@/features/articles/components/ArticleNotFound";
+import ArticleSkeleton from "@/features/articles/components/ArticleSkeleton";
 
 import { SortBy, useGetMyArticles } from "../api/getMyArticles";
 
@@ -19,36 +20,12 @@ export default function MyArticleCards({ memberId, sortBy }: Props) {
     { getNextPageParam: (lastPage) => lastPage.nextItemId || undefined },
   );
 
-  if (articleQuery.isLoading)
-    return (
-      <ul className={classes["card-list"]}>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-      </ul>
-    );
+  if (articleQuery.isLoading) {
+    return <ArticleSkeleton />;
+  }
 
-  if (!articleQuery.data?.pages.length) {
-    return (
-      <div className={classes["not-found"]}>
-        <Text>등록된 링크가 없어요</Text>
-      </div>
-    );
+  if (articleQuery.data?.pages.length === 0) {
+    return <ArticleNotFound />;
   }
 
   return (
@@ -57,7 +34,7 @@ export default function MyArticleCards({ memberId, sortBy }: Props) {
       hasMore={articleQuery.hasNextPage}
     >
       <ul className={classes["card-list"]}>
-        {articleQuery.data.pages.map((page) =>
+        {articleQuery.data?.pages.map((page) =>
           page.items.map((item) => (
             <li key={item.id}>
               <ArticleCard article={item} />

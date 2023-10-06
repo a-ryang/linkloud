@@ -1,33 +1,15 @@
-import { Chip, Group } from "@mantine/core";
+import { Box, Chip, Group } from "@mantine/core";
 import { useState } from "react";
 
 import AppShell from "@/components/Layout/AppShell";
 import Footer from "@/components/Layout/Footer";
+import ReadStatus from "@/features/articles/components/ReadStatus";
 import useAuth from "@/features/auth/hooks/useAuth";
 
 import { SortBy } from "../api/getMyArticles";
 import MyArticleCards from "../components/MyArticleCards";
 
 import classes from "./MyArticles.module.css";
-
-const sortOptions = [
-  {
-    value: "latest",
-    label: "등록순",
-  },
-  {
-    value: "reading",
-    label: "읽는중",
-  },
-  {
-    value: "unread",
-    label: "읽지 않음",
-  },
-  {
-    value: "read",
-    label: "읽음",
-  },
-];
 
 export default function MyArticles() {
   const { user } = useAuth();
@@ -49,6 +31,45 @@ export default function MyArticles() {
   );
 }
 
+interface SortOption {
+  value: SortBy;
+  label: React.ReactNode;
+}
+
+const sortOptions: SortOption[] = [
+  {
+    value: "latest",
+    label: "등록순",
+  },
+  {
+    value: "unread",
+    label: "읽지 않음",
+  },
+  {
+    value: "reading",
+    label: (
+      <>
+        <Box component="span" mr="xs">
+          읽는중
+        </Box>
+        <ReadStatus status="READING" />
+      </>
+    ),
+  },
+
+  {
+    value: "read",
+    label: (
+      <>
+        <Box component="span" mr="xs">
+          읽음
+        </Box>
+        <ReadStatus status="READ" />
+      </>
+    ),
+  },
+];
+
 interface SortOptionsProps {
   onChange: (value: string) => void;
 }
@@ -56,7 +77,7 @@ interface SortOptionsProps {
 const SortOptions = ({ onChange }: SortOptionsProps) => {
   const [currentOption, setCurrentOptions] = useState(sortOptions[0].value);
 
-  const handleChange = (value: string) => {
+  const handleChange = (value: SortBy) => {
     setCurrentOptions(value);
     onChange(value);
   };
@@ -65,7 +86,7 @@ const SortOptions = ({ onChange }: SortOptionsProps) => {
     <Chip.Group
       multiple={false}
       value={currentOption}
-      onChange={(value) => handleChange(value)}
+      onChange={(value) => handleChange(value as SortBy)}
     >
       <Group py="md" mx="lg" className="container">
         {sortOptions.map((option) => (

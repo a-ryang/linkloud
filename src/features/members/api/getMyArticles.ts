@@ -9,7 +9,7 @@ export interface Response extends CursorPageInfo {
   items: Article[];
 }
 
-export type SortBy = "latest" | "title" | "hearts";
+export type SortBy = "latest" | "title" | "read" | "reading" | "unread";
 
 export interface GetMyArticlesQuery {
   nextId?: number;
