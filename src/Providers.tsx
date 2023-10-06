@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -17,12 +18,14 @@ export default function Providers() {
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme} cssVariablesResolver={resolver}>
-          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-            <AuthProvider>
-              <Notifications position="top-center" />
-              <RouterProvider router={router} />
-            </AuthProvider>
-          </GoogleOAuthProvider>
+          <ModalsProvider>
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+              <AuthProvider>
+                <Notifications position="top-center" />
+                <RouterProvider router={router} />
+              </AuthProvider>
+            </GoogleOAuthProvider>
+          </ModalsProvider>
         </MantineProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>
