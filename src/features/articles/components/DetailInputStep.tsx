@@ -6,16 +6,8 @@ import {
   Textarea,
 } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
-import { notifications } from "@mantine/notifications";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-import ApiError from "@/libs/error/ApiError";
-import ROUTES_PATH from "@/routes/routesPath";
-
-import { CreateArticleDto, createArticle } from "../api/createArticle";
-import { UpdateArticleDto, updateArticle } from "../api/updateArticle";
-import { FormValues } from "../routes/Create";
+import { FormValues } from "../hooks/useArticleForm";
 
 import classes from "./DetailInputStep.module.css";
 
@@ -25,59 +17,20 @@ interface Props {
   id?: number;
   form: UseFormReturnType<FormValues>;
   mode: Mode;
+  isLoading: boolean;
   onPrev: () => void;
+  onSubmit: () => void;
 }
 
-export default function DetailsInputStep({ id, form, mode, onPrev }: Props) {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSubmit = (mode: Mode) => {
-    try {
-      setIsLoading(true);
-      switch (mode) {
-        case "create": {
-          handleCreate(form.values);
-          notifications.show({ message: "새 링크가 등록되었어요" });
-          break;
-        }
-        case "edit": {
-          if (id) {
-            handleEdit(id, form.values);
-            notifications.show({ message: "수정이 완료되었어요" });
-          }
-          break;
-        }
-      }
-    } catch (e) {
-      if (e instanceof ApiError) {
-        if (e.message === "Bad Request") {
-          form.setFieldError("link", "올바른 링크를 입력해주세요");
-        }
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleCreate = async (data: CreateArticleDto) => {
-    await createArticle(data);
-    navigate(ROUTES_PATH.MY_ARTICLES);
-  };
-
-  const handleEdit = async (id: number, data: UpdateArticleDto) => {
-    await updateArticle(id, data);
-    navigate(ROUTES_PATH.MY_ARTICLES);
-  };
-
+export default function DetailsInputStep({
+  form,
+  mode,
+  isLoading,
+  onPrev,
+  onSubmit,
+}: Props) {
   return (
-    <form
-      className={classes.wrap}
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(mode);
-      }}
-    >
+    <form className={classes.wrap} onSubmit={onSubmit}>
       <TextInput
         aria-label="링크 입력란"
         label="링크"
@@ -112,6 +65,7 @@ export default function DetailsInputStep({ id, form, mode, onPrev }: Props) {
         placeholder="설명을 입력해주세요"
         size="md"
         radius="md"
+        withAsterisk
         rightSectionPointerEvents="all"
         rightSection={
           <CloseButton

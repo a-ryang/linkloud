@@ -1,55 +1,22 @@
 import { Center } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { Check } from "@phosphor-icons/react";
 import { useState } from "react";
-import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 import AppShell from "@/components/Layout/AppShell";
+import ROUTES_PATH from "@/routes/routesPath";
 
 import DetailsInputStep from "../components/DetailInputStep";
 import LinkInputStep from "../components/LinkInputStep";
+import useArticleForm from "../hooks/useArticleForm";
 
 import classes from "./Create.module.css";
 
-export interface FormValues {
-  url: string;
-  title: string;
-  description: string;
-  tags: string[];
-}
-
-const schema = z.object({
-  url: z.string().url("올바른 링크를 입력해주세요"),
-  title: z
-    .string()
-    .nonempty("제목을 입력하세요")
-    .min(2, "제목은 2~20자를 입력해주세요")
-    .max(20, "제목은 2~20자를 입력해주세요"),
-  description: z.string().max(200, "최대 200자까지 입력해주세요"),
-  tags: z
-    .string()
-    .array()
-    .max(5, "태그는 최대 5개까지만 입력해주세요")
-    .refine((tags) => {
-      const uniqueTags = new Set(tags);
-      return uniqueTags.size === tags.length;
-    }, "중복된 태그는 입력할 수 없어요")
-    .refine(
-      (tags) => tags.every((tag) => tag.length <= 20),
-      "태그는 최대 20자까지 입력할 수 있어요",
-    ),
-});
-
 export default function CreateArticle() {
   const [step, setStep] = useState(1);
-  const form = useForm<FormValues>({
-    initialValues: {
-      url: "",
-      title: "",
-      description: "",
-      tags: [],
-    },
-    validate: zodResolver(schema),
-  });
+  const { form, isLoading, create } = useArticleForm();
+  const navigate = useNavigate();
 
   const handleClickNext = (og: OG, url: string) => {
     setStep((prev) => prev + 1);
@@ -60,6 +27,16 @@ export default function CreateArticle() {
 
   const handleClickPrev = () => {
     setStep((prev) => prev - 1);
+  };
+
+  const handleSubmit = async () => {
+    await create(form.values);
+    notifications.show({
+      message: "새 링크가 등록되었어요",
+      icon: <Check weight="bold" />,
+      color: "green",
+    });
+    navigate(ROUTES_PATH.MY_ARTICLES);
   };
 
   return (
@@ -76,7 +53,9 @@ export default function CreateArticle() {
             <DetailsInputStep
               mode="create"
               form={form}
+              isLoading={isLoading}
               onPrev={handleClickPrev}
+              onSubmit={handleSubmit}
             />
           )}
         </div>
