@@ -24,7 +24,7 @@ export default function MyArticleCards({ memberId, sortBy }: Props) {
     return <ArticleSkeleton />;
   }
 
-  if (articleQuery.data?.pages.length === 0) {
+  if (!articleQuery.data?.pages.length) {
     return <ArticleNotFound />;
   }
 
@@ -37,7 +37,7 @@ export default function MyArticleCards({ memberId, sortBy }: Props) {
         {articleQuery.data?.pages.map((page) =>
           page.items.map((item) => (
             <li key={item.id}>
-              <ArticleCard article={item} />
+              <ArticleCard article={{ ...item, author: true }} />
             </li>
           )),
         )}
