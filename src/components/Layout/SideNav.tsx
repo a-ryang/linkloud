@@ -29,6 +29,7 @@ export default function SideNav() {
               size="lg"
               component="a"
               fullWidth
+              radius="md"
               classNames={{ inner: classes["nav-item"] }}
               onClick={(e) => {
                 e.preventDefault();
@@ -52,6 +53,7 @@ export default function SideNav() {
             size="lg"
             component="a"
             fullWidth
+            radius="md"
             classNames={{ inner: classes["nav-item"] }}
             onClick={(e) => {
               e.preventDefault();
@@ -81,6 +83,7 @@ export default function SideNav() {
                   size="lg"
                   component="a"
                   fullWidth
+                  radius="md"
                   classNames={{ inner: classes["nav-item"] }}
                   onClick={(e) => {
                     e.preventDefault();
