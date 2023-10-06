@@ -1,10 +1,9 @@
-import { Center, Title } from "@mantine/core";
+import { Center } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useState } from "react";
 import { z } from "zod";
 
-import BottomNav from "@/components/Layout/BottomNav";
-import SEO from "@/components/SEO";
+import AppShell from "@/components/Layout/AppShell";
 
 import DetailsInputStep from "../components/DetailInputStep";
 import LinkInputStep from "../components/LinkInputStep";
@@ -64,13 +63,9 @@ export default function CreateArticle() {
   };
 
   return (
-    <>
-      <SEO title="새로운 링크 등록하기" />
+    <AppShell title="새로운 링크 등록하기" ogTitle="새로운 링크 등록하기">
       <Center mih="100vh">
         <div className={classes.wrap}>
-          <header className={classes.header}>
-            <Title ml="md">새 링크 등록</Title>
-          </header>
           {step === 1 && (
             <LinkInputStep
               value={form.values.url}
@@ -86,7 +81,6 @@ export default function CreateArticle() {
           )}
         </div>
       </Center>
-      <BottomNav />
-    </>
+    </AppShell>
   );
 }

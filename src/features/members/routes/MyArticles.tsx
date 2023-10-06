@@ -1,8 +1,8 @@
 import { Chip, Group } from "@mantine/core";
 import { useState } from "react";
 
-import BottomNav from "@/components/Layout/BottomNav";
-import SEO from "@/components/SEO";
+import AppShell from "@/components/Layout/AppShell";
+import Footer from "@/components/Layout/Footer";
 import useAuth from "@/features/auth/hooks/useAuth";
 
 import { SortBy } from "../api/getMyArticles";
@@ -34,18 +34,18 @@ export default function MyArticles() {
   const [sortBy, setSortBy] = useState<SortBy>("latest");
 
   return (
-    <>
-      <SEO title="내 링크" description="내 링크들을 모아볼 수 있어요" />
-      <div>
-        <h1 className="sr-only">내 링크</h1>
-        <SortOptions onChange={(value) => setSortBy(value as SortBy)} />
-      </div>
+    <AppShell
+      title="내 링크"
+      ogTitle="내 링크"
+      ogDescription="내 링크들을 모아볼 수 있어요"
+    >
+      <SortOptions onChange={(value) => setSortBy(value as SortBy)} />
       <section className={classes["article-section"]}>
         <h1 className="sr-only">링크 목록</h1>
         <MyArticleCards memberId={user.id} sortBy={sortBy} />
       </section>
-      <BottomNav />
-    </>
+      <Footer />
+    </AppShell>
   );
 }
 
@@ -67,7 +67,7 @@ const SortOptions = ({ onChange }: SortOptionsProps) => {
       value={currentOption}
       onChange={(value) => handleChange(value)}
     >
-      <Group py="lg" mx="lg" className="container">
+      <Group py="md" mx="lg" className="container">
         {sortOptions.map((option) => (
           <Chip
             key={option.value}
