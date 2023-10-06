@@ -1,7 +1,7 @@
 import { Card, Group, Text, Title, Anchor, Flex, Box } from "@mantine/core";
 
 import classes from "./ArticleCard.module.css";
-import ArticleMenuDropdown from "./ArticleMenuDropdown";
+import ArticleDropdownMenu from "./ArticleDropdownMenu";
 import ArticleTags from "./ArticleTags";
 import ReadStatus from "./ReadStatus";
 
@@ -31,7 +31,7 @@ export default function ArticleCard({ article, onClick }: Props) {
             </Title>
           </Flex>
 
-          <ArticleMenuDropdown
+          <ArticleDropdownMenu
             id={article.id}
             readStatus={article.readStatus}
             isMy={article.author}
