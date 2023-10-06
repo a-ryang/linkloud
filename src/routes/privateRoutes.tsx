@@ -16,7 +16,7 @@ function PrivateRoute({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate(ROUTES_PATH.LOGIN);
+      navigate(ROUTES_PATH.LOGIN, { replace: true });
     }
   }, [isLoggedIn, navigate]);
 
