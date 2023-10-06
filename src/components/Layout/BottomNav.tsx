@@ -13,6 +13,7 @@ export default function BottomNav() {
 
   return (
     <nav className={classes["bottom-nav"]}>
+      <h1 className="sr-only">하단 네비게이션</h1>
       <ul className={clsx(classes["nav-list"], "container")}>
         {items.map((item) => (
           <li key={item.id} className="w-full">
@@ -22,7 +23,7 @@ export default function BottomNav() {
                 href={item.href}
                 size="lg"
                 w="100%"
-                variant={pathname === item.href ? "filled" : "subtle"}
+                variant="subtle"
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(item.href);
@@ -46,10 +47,10 @@ const items = [
     href: ROUTES_PATH.HOME,
     icons: [
       <>
-        <House weight="fill" />
+        <House weight="fill" size={28} />
       </>,
       <>
-        <House />
+        <House size={28} />
       </>,
     ],
   },
@@ -59,10 +60,10 @@ const items = [
     href: ROUTES_PATH.MY_ARTICLES,
     icons: [
       <>
-        <Link weight="fill" />
+        <Link weight="fill" size={28} />
       </>,
       <>
-        <Link />
+        <Link size={28} />
       </>,
     ],
   },
@@ -72,10 +73,10 @@ const items = [
     href: ROUTES_PATH.CREATE_ARTICLE,
     icons: [
       <>
-        <Plus weight="fill" />
+        <Plus weight="fill" size={28} />
       </>,
       <>
-        <Plus />
+        <Plus size={28} />
       </>,
     ],
   },
@@ -85,10 +86,10 @@ const items = [
     href: ROUTES_PATH.MENU,
     icons: [
       <>
-        <List weight="fill" />
+        <List weight="fill" size={28} />
       </>,
       <>
-        <List />
+        <List size={28} />
       </>,
     ],
   },
