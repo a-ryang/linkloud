@@ -11,6 +11,8 @@ interface Props {
 }
 
 export default function ArticleCard({ article, onClick }: Props) {
+  const hasDescriptionOrTags = article.description || article.tags.length > 0;
+
   return (
     <Card
       withBorder
@@ -41,14 +43,19 @@ export default function ArticleCard({ article, onClick }: Props) {
         <Anchor size="sm">{article.url}</Anchor>
       </Box>
 
-      <Card.Section mt="sm" inheritPadding>
-        <p>
-          <Text component="span" c="gray.7" mr="xs">
-            {article.description}
-          </Text>
-          <ArticleTags tags={article.tags} />
-        </p>
-      </Card.Section>
+      {hasDescriptionOrTags && (
+        <Card.Section mt="sm" inheritPadding>
+          <p>
+            {article.description && (
+              <Text component="span" c="gray.7" mr="xs">
+                {article.description}
+              </Text>
+            )}
+            <ArticleTags tags={article.tags} />
+          </p>
+        </Card.Section>
+      )}
+
       <Card.Section inheritPadding mt="sm" pb="md">
         <Flex justify="space-between">
           <Flex gap="xs">
