@@ -25,7 +25,13 @@ export default function GoogleButton() {
   });
 
   return (
-    <Button fullWidth variant="default" radius="md" onClick={handleLogin}>
+    <Button
+      fullWidth
+      variant="default"
+      radius="md"
+      size="lg"
+      onClick={handleLogin}
+    >
       <GoogleIcon />
       <Text ml="md" size="sm">
         구글로 시작하기
