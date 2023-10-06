@@ -1,4 +1,4 @@
-import { ActionIcon, Menu } from "@mantine/core";
+import { ActionIcon, Menu, useMantineTheme } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import {
   Book,
@@ -24,6 +24,7 @@ export default function ArticleMenuDropdown({ id, readStatus, isMy }: Props) {
   const updateReadStatusMutation = useUpdateReadStatus();
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const theme = useMantineTheme();
 
   const handleUpdateReadStatus = (
     e: React.MouseEvent,
@@ -112,7 +113,7 @@ export default function ArticleMenuDropdown({ id, readStatus, isMy }: Props) {
         <ActionIcon
           aria-label="더보기"
           variant="subtle"
-          color="gray"
+          color={theme.colors.gray["80"]}
           onClick={(e) => {
             e.stopPropagation();
           }}
