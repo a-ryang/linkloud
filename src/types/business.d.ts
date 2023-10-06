@@ -44,7 +44,7 @@ interface Article {
   author?: boolean;
 }
 
-type ArticleReadStatus = "unread" | "reading" | "read";
+type ArticleReadStatus = "UNREAD" | "READING" | "READ";
 
 interface Tag {
   id: number;
