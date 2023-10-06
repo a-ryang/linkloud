@@ -1,4 +1,3 @@
-import { Skeleton, Text } from "@mantine/core";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { useGetArticles } from "../api/getArticles";
@@ -6,6 +5,8 @@ import useArticle from "../hooks/useArticle";
 
 import ArticleCard from "./ArticleCard";
 import classes from "./ArticleCards.module.css";
+import ArticleNotFound from "./ArticleNotFound";
+import ArticleSkeleton from "./ArticleSkeleton";
 
 export default function ArticleCards() {
   const articleQuery = useGetArticles(
@@ -14,36 +15,12 @@ export default function ArticleCards() {
   );
   const handleClick = useArticle();
 
-  if (articleQuery.isLoading)
-    return (
-      <ul className={classes["card-list"]}>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-        <li>
-          <Skeleton height={160} />
-        </li>
-      </ul>
-    );
+  if (articleQuery.isLoading) {
+    return <ArticleSkeleton />;
+  }
 
   if (!articleQuery.data?.pages.length) {
-    return (
-      <div className={classes["not-found"]}>
-        <Text>등록된 링크가 없어요</Text>
-      </div>
-    );
+    return <ArticleNotFound />;
   }
 
   return (
