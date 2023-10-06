@@ -6,6 +6,7 @@ import {
   Textarea,
 } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -37,10 +38,14 @@ export default function DetailsInputStep({ id, form, mode, onPrev }: Props) {
       switch (mode) {
         case "create": {
           handleCreate(form.values);
+          notifications.show({ message: "새 링크가 등록되었어요" });
           break;
         }
         case "edit": {
-          if (id) handleEdit(id, form.values);
+          if (id) {
+            handleEdit(id, form.values);
+            notifications.show({ message: "수정이 완료되었어요" });
+          }
           break;
         }
       }
