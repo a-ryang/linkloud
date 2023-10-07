@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as qs from "qs";
 
+import { API } from "@/configs";
 import { getAccessToken } from "@/features/auth/utils";
 
 import ApiError from "../error/ApiError";
@@ -10,7 +11,7 @@ import ServerError from "../error/ServerError";
 import { handleExpiredToken } from "./helper";
 
 export const instance = axios.create({
-  baseURL: "/api",
+  baseURL: API,
   timeout: 3 * 1000,
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
@@ -35,8 +36,6 @@ instance.interceptors.response.use(
     if (e.response?.data?.["message"]) {
       const request = e.config;
       const message = e.response?.data?.["message"] as string;
-
-      console.log("message ", message);
 
       if (message === "Expired access token") {
         handleExpiredToken(e, request);
