@@ -1,0 +1,52 @@
+.sidebar {
+  display: none;
+  justify-content: end;
+  border-right: 1px solid var(--mantine-color-gray-2);
+  box-shadow: inset -10px 0 9px -7px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    display: flex;
+  }
+}
+
+.nav {
+  width: 88px;
+  padding: 0 0.5rem;
+  margin: 0 auto;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: 288px;
+  }
+}
+
+.nav-list {
+  width: 88px;
+  padding: 0 0.5rem;
+  margin: 0 auto;
+
+  position: fixed; /* Make the sidebar fixed */
+  top: 0; /* Position it at the top */
+  left: 0; /* Position it at the left */
+  height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Allow vertical scrolling */
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: 288px;
+  }
+}
+
+.nav-item {
+  @media (min-width: $mantine-breakpoint-md) {
+    display: flex;
+    justify-content: start;
+  }
+}
+
+.nav-item-label {
+  display: none;
+  margin-left: 1rem;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    display: inline-flex;
+  }
+}

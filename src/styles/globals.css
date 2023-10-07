@@ -1,0 +1,12 @@
+@import url("./reset.css");
+@import url("./utils.css");
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  color: var(--mantine-color-dark-9);
+}
