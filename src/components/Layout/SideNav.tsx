@@ -30,6 +30,7 @@ export default function SideNav() {
               component="a"
               fullWidth
               radius="md"
+              href={ROUTES_PATH.LOGOUT}
               classNames={{ inner: classes["nav-item"] }}
               onClick={(e) => {
                 e.preventDefault();
@@ -55,6 +56,7 @@ export default function SideNav() {
             fullWidth
             radius="md"
             classNames={{ inner: classes["nav-item"] }}
+            href={ROUTES_PATH.LOGIN}
             onClick={(e) => {
               e.preventDefault();
               navigate(ROUTES_PATH.LOGIN);
