@@ -72,6 +72,9 @@ export default function DetailsInputStep({
         size="md"
         radius="md"
         withAsterisk
+        autosize
+        minRows={2}
+        maxRows={10}
         rightSectionPointerEvents="all"
         rightSection={
           <CloseButton
