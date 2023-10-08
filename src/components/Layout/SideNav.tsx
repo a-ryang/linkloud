@@ -84,6 +84,7 @@ export default function SideNav() {
                   component="a"
                   fullWidth
                   radius="md"
+                  href={item.href}
                   classNames={{ inner: classes["nav-item"] }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -109,6 +110,7 @@ const Logo = () => {
     <li>
       <h1>
         <Button
+          aria-label="링클라우드"
           variant="transparent"
           size="lg"
           component="a"
