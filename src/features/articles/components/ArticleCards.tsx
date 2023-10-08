@@ -19,7 +19,7 @@ export default function ArticleCards() {
     return <ArticleSkeleton />;
   }
 
-  if (!articleQuery.data?.pages.length) {
+  if (!articleQuery.data?.pages[0].items) {
     return <ArticleNotFound />;
   }
 
