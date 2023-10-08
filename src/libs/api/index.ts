@@ -14,6 +14,7 @@ export const instance = axios.create({
   baseURL: API,
   timeout: 3 * 1000,
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
+  withCredentials: true,
 });
 
 instance.interceptors.request.use((config) => {
