@@ -11,6 +11,7 @@ export default function Footer() {
         </div>
         <div className={classes.github}>
           <a
+            aria-label="linkloud github"
             target="_blank"
             href="https://github.com/linkloud/linkloud.io"
             rel="noopener noreferrer"
