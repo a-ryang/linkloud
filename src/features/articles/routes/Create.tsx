@@ -30,7 +30,11 @@ export default function CreateArticle() {
   };
 
   const handleSubmit = async () => {
+    form.validate();
+    if (!form.isValid()) return;
+
     await create(form.values);
+
     notifications.show({
       message: "새 링크가 등록되었어요",
       icon: <Check weight="bold" />,

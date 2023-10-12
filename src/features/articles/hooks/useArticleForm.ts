@@ -57,9 +57,6 @@ export default function useArticleForm() {
     try {
       setIsLoading(true);
 
-      form.validate();
-      if (!form.isValid()) return;
-
       await createArticle(data);
 
       return true;
