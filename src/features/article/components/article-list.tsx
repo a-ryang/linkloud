@@ -16,10 +16,9 @@ import { ArticleCard } from ".";
 
 interface Props {
   query: ReturnType<typeof useGetMyArticles | typeof useGetArticles>;
-  isMyArticle?: boolean;
 }
 
-export function ArticleList({ query, isMyArticle }: Props) {
+export function ArticleList({ query }: Props) {
   const observeRef = useRef<HTMLDivElement>(null);
   const handleOpenLink = useOpenArticle();
 
@@ -44,10 +43,7 @@ export function ArticleList({ query, isMyArticle }: Props) {
       {articleList.map((page) =>
         page.items.map((item) => (
           <li key={item.id}>
-            <ArticleCard
-              article={{ ...item, author: isMyArticle ?? item.author }}
-              onClick={(id) => handleOpenLink(id)}
-            />
+            <ArticleCard article={item} onClick={(id) => handleOpenLink(id)} />
           </li>
         )),
       )}
