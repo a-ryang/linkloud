@@ -1,6 +1,6 @@
-import { get } from "@/libs/api";
+import { get } from "@/libs/http-client";
 
-import { TokenResponse } from "../types";
+import { TokenResponse } from "./socialLogin";
 
 export function refresh() {
   return get<TokenResponse>("/v1/auth/refresh");

@@ -1,14 +1,14 @@
-import { post } from "@/libs/api";
+import { post } from "@/libs/http-client";
 
-import { TokenResponse } from "../types";
-
-type SocialType = "google";
-
-export interface SocialLoginRequest {
+export interface SocialLoginDto {
   socialType: SocialType;
   code: string;
 }
 
-export function socialLogin({ socialType, code }: SocialLoginRequest) {
+export interface TokenResponse {
+  accessToken: string;
+}
+
+export function socialLogin({ socialType, code }: SocialLoginDto) {
   return post<TokenResponse>(`/v1/auth/${socialType}`, { socialType, code });
 }

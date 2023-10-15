@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.popover-guide {
+  font-size: 14px;
+}
+
+.popover-label {
+  margin-right: 2px;
+  font-weight: 500;
+}
+
+.popover-ex {
+  color: var(--mantine-color-gray-7);
+}

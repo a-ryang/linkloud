@@ -1,0 +1,1 @@
+declare type SocialType = "google";
