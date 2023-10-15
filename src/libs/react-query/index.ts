@@ -1,11 +1,9 @@
-import { DefaultOptions, QueryClient } from "@tanstack/react-query";
+import type { QueryClientConfig } from "@tanstack/react-query";
 
-const queryConfig: DefaultOptions = {
+export const queryConfig: QueryClientConfig["defaultOptions"] = {
   queries: {
     useErrorBoundary: true,
     refetchOnWindowFocus: false,
     retry: false,
   },
 };
-
-export const queryClient = new QueryClient({ defaultOptions: queryConfig });
