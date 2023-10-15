@@ -26,7 +26,7 @@ export function MyArticlesSection({}: MyArticlesProps) {
       <SortOptions onChange={(value) => setSortBy(value)} />
       <section className={classes["article-section"]}>
         <h1 className="sr-only">링크 목록</h1>
-        <ArticleList query={myArticlesQuery} isMyArticle={true} />
+        <ArticleList query={myArticlesQuery} />
       </section>
     </>
   );

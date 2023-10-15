@@ -1,6 +1,7 @@
-import { Center } from "@mantine/core";
+export const runtime = "edge";
 
 import { AppShell } from "@/components/app-shell";
+import { Center } from "@/components/layouts";
 import { EditArticleForm } from "@/features/article/components";
 
 export default function EditArticle({ params }: { params: { id: string } }) {
@@ -8,7 +9,7 @@ export default function EditArticle({ params }: { params: { id: string } }) {
 
   return (
     <AppShell title="링크 수정하기">
-      <Center mih="100vh">
+      <Center>
         <EditArticleForm id={articleId} />
       </Center>
     </AppShell>
