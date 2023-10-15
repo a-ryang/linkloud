@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { Center } from "@mantine/core";
 
 import { AppShell } from "@/components/app-shell";

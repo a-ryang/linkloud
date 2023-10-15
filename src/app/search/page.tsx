@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { AppShell } from "@/components/app-shell";
 import { Footer } from "@/components/footer";
 import { SearchContainer } from "@/features/article/components";
