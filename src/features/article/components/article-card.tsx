@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, Group, Text, Title, Anchor, Flex, Box } from "@mantine/core";
 
 import classes from "./article-card.module.css";

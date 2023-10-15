@@ -1,3 +1,5 @@
+"use client";
+
 import { Loader as MantineLoader } from "@mantine/core";
 import clsx from "clsx";
 

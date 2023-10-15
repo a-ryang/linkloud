@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "@mantine/form";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
