@@ -2,6 +2,7 @@
 
 import { Popover, TextInput, Title } from "@mantine/core";
 import { MagnifyingGlass } from "@phosphor-icons/react";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useSearchArticles } from "../hooks/useSearchArticle";
@@ -10,11 +11,17 @@ import classes from "./search-container.module.css";
 
 import { ArticleList } from ".";
 
-interface SearchContainerProps {
-  initialTags?: string;
-}
+const formatTags = (tags: string | null) => {
+  if (typeof tags === "string") {
+    return `[${tags}]`;
+  }
+};
 
-export function SearchContainer({ initialTags }: SearchContainerProps) {
+export function SearchContainer() {
+  const searchParams = useSearchParams();
+
+  const initialTags = formatTags(searchParams.get("tags"));
+
   const { form, keyword, tags, searchQuery, search } = useSearchArticles({ initialTags });
   const [isGuideOpened, setIsGuideOpened] = useState(false);
 

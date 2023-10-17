@@ -74,7 +74,8 @@ export default function useEditArticle(id: number) {
 
     if (isNaN(id)) {
       notifications.show({ message: "유효하지 않는 링크에요", color: "red" });
-      router.replace(ROUTER.HOME);
+      router.push(ROUTER.HOME);
+      return;
     }
 
     fetchArticle(id, user.id);
