@@ -1,6 +1,6 @@
 "use client";
 
-import { NavLink } from "@mantine/core";
+import { Center, NavLink } from "@mantine/core";
 import { SignIn, SignOut } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 
@@ -16,35 +16,37 @@ export function MenuList() {
   const router = useRouter();
 
   return (
-    <ul className={classes["nav-list"]}>
-      {isLoggedIn && (
-        <li className={classes["nav-wrap"]}>
-          <NavLink
-            href={ROUTER.LOGOUT}
-            label={"로그아웃"}
-            leftSection={<SignOut />}
-            className={classes.nav}
-            onClick={(e) => {
-              e.preventDefault();
-              handleLogout();
-            }}
-          />
-        </li>
-      )}
-      {!isLoggedIn && (
-        <li className={classes["nav-wrap"]}>
-          <NavLink
-            href={ROUTER.LOGIN}
-            label={"로그인"}
-            leftSection={<SignIn />}
-            className={classes.nav}
-            onClick={(e) => {
-              e.preventDefault();
-              router.push(ROUTER.LOGIN);
-            }}
-          />
-        </li>
-      )}
-    </ul>
+    <Center>
+      <ul className={classes["nav-list"]}>
+        {isLoggedIn && (
+          <li className={classes["nav-wrap"]}>
+            <NavLink
+              href={ROUTER.LOGOUT}
+              label={"로그아웃"}
+              leftSection={<SignOut />}
+              className={classes.nav}
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogout();
+              }}
+            />
+          </li>
+        )}
+        {!isLoggedIn && (
+          <li className={classes["nav-wrap"]}>
+            <NavLink
+              href={ROUTER.LOGIN}
+              label={"로그인"}
+              leftSection={<SignIn />}
+              className={classes.nav}
+              onClick={(e) => {
+                e.preventDefault();
+                router.push(ROUTER.LOGIN);
+              }}
+            />
+          </li>
+        )}
+      </ul>
+    </Center>
   );
 }

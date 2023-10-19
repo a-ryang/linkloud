@@ -1,6 +1,7 @@
 "use client";
 
-import { Container, Title, Image, Text } from "@mantine/core";
+import { Container, Title, Text } from "@mantine/core";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -29,12 +30,12 @@ export function AuthForm() {
         <div className={classes.content}>
           <h1 className={classes.logo}>
             <Link href={ROUTER.HOME}>
-              <Image src="/images/logo.svg" height={36} width={220} alt="linkloud" />
+              <Image src="/images/logo.svg" height={37} width={220} alt="linkloud" />
               <span className="sr-only">링클라우드</span>
             </Link>
           </h1>
 
-          <Title order={2} className={classes.title}>
+          <Title order={2} px="sm" className={classes.title}>
             유용한{" "}
             <Text
               component="span"
