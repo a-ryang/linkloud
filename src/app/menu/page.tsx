@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 
 import { AppShell } from "@/components/app-shell";
-import { Center } from "@/components/layouts";
 import { MenuList } from "@/features/menu/components";
 
 export const metadata: Metadata = {
@@ -11,9 +10,7 @@ export const metadata: Metadata = {
 export default function Menu() {
   return (
     <AppShell title="메뉴">
-      <Center>
-        <MenuList />
-      </Center>
+      <MenuList />
     </AppShell>
   );
 }
