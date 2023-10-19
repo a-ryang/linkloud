@@ -1,4 +1,8 @@
 .tag {
-  color: var(--mantine-color-gray.7);
+  color: var(--mantine-color-blue-7);
   font-weight: 500;
+}
+
+.tag:hover {
+  text-decoration: underline;
 }
