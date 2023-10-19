@@ -16,17 +16,20 @@ export function PopularTagList() {
   }
 
   return (
-    <section className={classes["popular-tag-list"]}>
-      <Title size="h4" p="sm">
-        인기 태그
-      </Title>
-      <ul className={clsx(classes["tag-list"], "no-scrollbar")}>
-        {tagsQuery.data?.items.map((item) => (
-          <li key={item.id}>
-            <Tag tag={item} href={`/search?tags=${item.name}`} color="gray" />
-          </li>
-        ))}
-      </ul>
+    <section className={clsx(classes["popular-tag-list"], "container")}>
+      <div className={classes.wrap}>
+        <Title size="h4" p="sm">
+          인기 태그
+        </Title>
+
+        <ul className={clsx(classes["tag-list"], "no-scrollbar")}>
+          {tagsQuery.data?.items.map((item) => (
+            <li key={item.id}>
+              <Tag tag={item} href={`/search?tags=${item.name}`} color="gray" />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

@@ -1,5 +1,11 @@
 .popular-tag-list {
-  margin: 0 1rem 1rem 1rem;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.wrap {
   background-color: var(--mantine-color-gray-2);
   border-radius: var(--mantine-radius-md);
 }
@@ -14,5 +20,6 @@
   padding-left: var(--mantine-spacing-sm);
   padding-right: var(--mantine-spacing-sm);
   padding-bottom: var(--mantine-spacing-sm);
-  overflow-x: scroll;
+  overflow: scroll;
+  white-space: nowrap;
 }
