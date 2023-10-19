@@ -18,7 +18,7 @@ export function MyArticlesSection({}: MyArticlesProps) {
   const myArticlesQuery = useGetMyArticles(
     user.id,
     { sortBy },
-    { getNextPageParam: (lastPage) => lastPage.nextItemId || undefined },
+    { getNextPageParam: (lastPage) => lastPage.nextItemId || undefined, retry: 2 },
   );
 
   return (

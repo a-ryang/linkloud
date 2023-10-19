@@ -5,8 +5,9 @@ import { API } from "@/constants/config";
 import { getAccessToken } from "@/features/auth/utils";
 
 import { ApiError, BaseError, ServerError } from "../error";
+import API_ERROR_MESSAGE from "../error/api-error-message";
 
-import { handleExpiredToken } from "./helper";
+import { refreshHelper } from "./helper";
 
 export const instance = axios.create({
   baseURL: API,
@@ -36,9 +37,9 @@ instance.interceptors.response.use(
       const request = e.config;
       const message = e.response?.data?.["message"] as string;
 
-      if (message === "Expired access token") {
-        handleExpiredToken(e, request);
-        return;
+      if (message === API_ERROR_MESSAGE.AT_EXPIRED) {
+        refreshHelper.handleExpiredAccessToken(e, request);
+        return Promise.reject(new ApiError(API_ERROR_MESSAGE.AT_EXPIRED, e.response.status));
       }
 
       return Promise.reject(new ApiError(e.response.data?.["message"], e.response.status));

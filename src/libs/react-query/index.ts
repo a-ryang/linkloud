@@ -4,6 +4,5 @@ export const queryConfig: QueryClientConfig["defaultOptions"] = {
   queries: {
     useErrorBoundary: true,
     refetchOnWindowFocus: false,
-    retry: false,
   },
 };
