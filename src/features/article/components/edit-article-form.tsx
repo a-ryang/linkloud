@@ -11,7 +11,7 @@ import { LinkInputStep } from "./link-input-step";
 
 export function EditArticleForm() {
   const params = useParams();
-  const id = Number(params.id[0]);
+  const id = Number(params.id);
   const [step, setStep] = useState(2);
   const { form, isLoading, isFetching, edit } = useEditArticle(id);
 
