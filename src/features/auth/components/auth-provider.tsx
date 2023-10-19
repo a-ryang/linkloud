@@ -76,10 +76,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
         setUser(user);
         setIsLoggedIn(true);
       } catch (e) {
-        console.error(e);
-        if (e instanceof Error && e.message === "Expired refresh token") {
-          throw new ApiError("로그인 기간이 오래되어 로그아웃 처리되었어요");
-        }
+        clearAccessToken();
       } finally {
         setIsLoading(false);
       }

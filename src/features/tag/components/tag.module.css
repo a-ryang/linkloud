@@ -1,0 +1,15 @@
+.tag {
+  font-weight: 500;
+}
+
+.tag:hover {
+  text-decoration: underline;
+}
+
+.default {
+  color: var(--mantine-color-blue-7);
+}
+
+.gray {
+  color: var(--mantine-color-gray-7);
+}

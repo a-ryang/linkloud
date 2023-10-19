@@ -64,7 +64,7 @@ export function SortOptions({ onChange }: SortOptionsProps) {
       value={currentOption}
       onChange={(value) => handleChange(value as SortBy)}
     >
-      <Group py="md" mx="lg" className="container">
+      <Group py="md" px="md" className="container">
         {sortOptions.map((option) => (
           <Chip key={option.value} value={option.value} size="md" variant="outline">
             {option.label}

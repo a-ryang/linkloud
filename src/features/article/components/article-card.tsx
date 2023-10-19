@@ -42,7 +42,9 @@ export function ArticleCard({ article, onClick }: Props) {
       </Card.Section>
 
       <Box mt="xs">
-        <Anchor size="sm">{article.url}</Anchor>
+        <Anchor size="sm" href={article.url} className={classes.link}>
+          {article.url}
+        </Anchor>
       </Box>
 
       {hasDescriptionOrTags && (

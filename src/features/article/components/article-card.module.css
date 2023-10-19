@@ -1,5 +1,8 @@
-.card {
-  cursor: pointer;
+.card:hover .link {
+  text-decoration: underline;
+}
+
+.link {
 }
 
 .card:focus,
