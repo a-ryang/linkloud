@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { Metadata } from "next";
 
 import { AppShell } from "@/components/app-shell";
