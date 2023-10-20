@@ -1,0 +1,19 @@
+.tag-list-wrap {
+  display: none;
+  margin-top: 1rem;
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    display: block;
+  }
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 20px;
+  border-radius: var(--mantine-radius-lg);
+  background-color: var(--mantine-color-gray-0);
+}

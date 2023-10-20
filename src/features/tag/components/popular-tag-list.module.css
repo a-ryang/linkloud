@@ -1,8 +1,13 @@
 .popular-tag-list {
+  display: block;
   padding: 0 1rem;
   margin-bottom: 1rem;
   max-width: 100vw;
   overflow-x: hidden;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    display: none;
+  }
 }
 
 .wrap {
