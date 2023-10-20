@@ -9,6 +9,7 @@ import useAuth from "@/features/auth/hooks/useAuth";
 import useLogout from "@/features/auth/hooks/useLogout";
 
 import { LogoLink } from "./logo-link";
+import PopularTagList from "./popular-tag-list";
 import classes from "./sidebar.module.css";
 
 const ICON_SIZE = 28;
@@ -134,6 +135,7 @@ export function Sidebar() {
             </li>
           ))}
           {RenderAuth()}
+          <PopularTagList />
         </ul>
       </nav>
     </aside>
