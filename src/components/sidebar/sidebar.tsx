@@ -8,8 +8,7 @@ import ROUTER from "@/constants/router";
 import useAuth from "@/features/auth/hooks/useAuth";
 import useLogout from "@/features/auth/hooks/useLogout";
 
-import { Logo } from "../icons";
-
+import { LogoLink } from "./logo-link";
 import classes from "./sidebar.module.css";
 
 const ICON_SIZE = 28;
@@ -140,25 +139,3 @@ export function Sidebar() {
     </aside>
   );
 }
-
-const LogoLink = () => {
-  const router = useRouter();
-  return (
-    <li>
-      <Button
-        aria-label="링클라우드"
-        variant="transparent"
-        size="lg"
-        component="a"
-        fullWidth
-        href={ROUTER.HOME}
-        onClick={(e) => {
-          e.preventDefault();
-          router.push(ROUTER.HOME);
-        }}
-      >
-        <Logo size={50} /> <span className="sr-only">linkloud</span>
-      </Button>
-    </li>
-  );
-};
