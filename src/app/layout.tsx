@@ -64,14 +64,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <head>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9172714989529166"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
-      </head>
       <body className={font.className}>
         <Providers>{children}</Providers>
       </body>
