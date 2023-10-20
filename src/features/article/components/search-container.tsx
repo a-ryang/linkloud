@@ -1,6 +1,6 @@
 "use client";
 
-import { Popover, TextInput, Title } from "@mantine/core";
+import { Alert, Popover, TextInput, Title } from "@mantine/core";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -70,13 +70,17 @@ export function SearchContainer() {
       </form>
       {searchQuery.isFetched && (
         <>
-          <div>
+          <Alert variant="transparent">
             {keyword && (
               <>
                 <Title order={2} size="h5">
                   <strong>&apos;{keyword}&apos;</strong> 검색결과
                 </Title>
-                {tags.length > 0 && <span>다음 태그와 함께 검색 되었어요: {tags.join(", ")}</span>}
+                {tags.length > 0 && (
+                  <span>
+                    다음 태그와 함께 검색 되었어요 {tags.map((tag) => `#${tag}`).join(", ")}
+                  </span>
+                )}
               </>
             )}
             {!keyword && tags.length > 0 && (
@@ -84,10 +88,12 @@ export function SearchContainer() {
                 <Title order={2} size="h5">
                   태그 검색결과
                 </Title>
-                <span>다음 태그와 함께 검색 되었어요: {tags.join(", ")}</span>
+                <span>
+                  다음 태그와 함께 검색 되었어요 {tags.map((tag) => `#${tag}`).join(", ")}
+                </span>
               </>
             )}
-          </div>
+          </Alert>
           <ArticleList query={searchQuery} />
         </>
       )}
