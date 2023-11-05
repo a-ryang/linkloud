@@ -22,3 +22,14 @@
   gap: 0.25rem;
   margin: 0 auto;
 }
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+
+  & > span {
+    font-size: x-small;
+  }
+}
