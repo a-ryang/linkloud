@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, Center } from "@mantine/core";
 import Link from "next/link";
 
