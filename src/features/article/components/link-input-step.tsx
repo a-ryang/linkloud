@@ -3,9 +3,9 @@
 import { Button, CloseButton, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useState } from "react";
-import { z } from "zod";
 
 import { ApiError } from "@/libs/error";
+import { linkInputStepSchema } from "@/libs/validation/article";
 
 import { getOpenGraph } from "../api/getOpenGraph";
 
@@ -16,16 +16,12 @@ interface Props {
   onClickNext: (og: OG, url: string) => void;
 }
 
-const schema = z.object({
-  url: z.string().url("올바른 링크를 입력해주세요"),
-});
-
 export function LinkInputStep({ value = "", onClickNext }: Props) {
   const form = useForm({
     initialValues: {
       url: value,
     },
-    validate: zodResolver(schema),
+    validate: zodResolver(linkInputStepSchema),
   });
   const [isLoading, setIsLoading] = useState(false);
 
