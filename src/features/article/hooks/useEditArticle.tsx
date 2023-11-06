@@ -75,6 +75,9 @@ export default function useEditArticle(id: number) {
       queryClient.invalidateQueries({
         queryKey: ["articles"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["article", id],
+      });
       router.replace(ROUTER.MY_ARTICLES);
     },
     onError: (e) => {
