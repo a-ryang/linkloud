@@ -6,8 +6,8 @@ export interface SearchArticlesResponse extends CursorPageInfo {
 
 export interface SearchArticlesQuery {
   nextId?: number;
-  keyword: string | null;
-  tags: string[] | null;
+  keyword?: string;
+  tags?: string[];
 }
 
 export async function searchArticles(query: SearchArticlesQuery): Promise<SearchArticlesResponse> {

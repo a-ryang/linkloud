@@ -4,7 +4,6 @@ import "@/styles/utils.css";
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Script from "next/script";
 
 import { SITE_CONFIG } from "@/constants/config";
 import Providers from "@/providers/providers";

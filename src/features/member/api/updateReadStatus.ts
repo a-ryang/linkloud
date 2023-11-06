@@ -1,8 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { patch } from "@/libs/http-client";
 
-interface UpdateReadStatusQuery {
+export interface UpdateReadStatusQuery {
   readStatus: ArticleReadStatus;
 }
 
@@ -17,32 +15,6 @@ export async function updateReadStatus(
     {
       params: {
         ...query,
-      },
-    },
-  );
-}
-
-export function useUpdateReadStatus() {
-  const queryClient = useQueryClient();
-
-  return useMutation(
-    ({
-      memberId,
-      articleId,
-      query,
-    }: {
-      memberId: number;
-      articleId: number;
-      query: UpdateReadStatusQuery;
-    }) => updateReadStatus(memberId, articleId, query),
-    {
-      onSuccess: (_data, variables) => {
-        queryClient.invalidateQueries({
-          queryKey: ["my-articles", variables.memberId],
-        });
-        queryClient.invalidateQueries({
-          queryKey: ["articles"],
-        });
       },
     },
   );

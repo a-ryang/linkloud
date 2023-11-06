@@ -3,13 +3,13 @@
 import { Skeleton, Title } from "@mantine/core";
 import clsx from "clsx";
 
-import { useGetTags } from "../api/getTags";
+import useTags from "../hooks/useTags";
 
 import classes from "./popular-tag-list.module.css";
 import { Tag } from "./tag";
 
 export function PopularTagList() {
-  const tagsQuery = useGetTags({ page: 1, size: 15, sortBy: "popularity" });
+  const tagsQuery = useTags({ page: 1, size: 15, sortBy: "popularity" });
 
   if (tagsQuery.isLoading) {
     return <Skeleton m="md" height={98} width="full" />;

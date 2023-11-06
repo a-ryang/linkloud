@@ -13,7 +13,7 @@ export function EditArticleForm() {
   const params = useParams();
   const id = Number(params.id);
   const [step, setStep] = useState(2);
-  const { form, isLoading, isFetching, edit } = useEditArticle(id);
+  const { form, isArticleLoading, edit } = useEditArticle(id);
 
   const handleClickNext = (og: OG, url: string) => {
     setStep((prev) => prev + 1);
@@ -26,8 +26,6 @@ export function EditArticleForm() {
     setStep((prev) => prev - 1);
   };
 
-  if (isFetching) return null;
-
   return (
     <div className={classes.wrap}>
       {step === 1 && <LinkInputStep value={form.values.url} onClickNext={handleClickNext} />}
@@ -35,9 +33,9 @@ export function EditArticleForm() {
         <DetailsInputStep
           mode="edit"
           form={form}
-          isLoading={isLoading}
+          isLoading={isArticleLoading}
           onPrev={handleClickPrev}
-          onSubmit={() => edit(id, form.values)}
+          onSubmit={() => edit(form.values)}
         />
       )}
     </div>

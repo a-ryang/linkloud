@@ -25,3 +25,7 @@ export const createArticleSchema = z.object({
 export const linkInputStepSchema = z.object({
   url: z.string().url("올바른 링크를 입력해주세요"),
 });
+
+export const searchSchema = z.object({
+  input: z.string().min(1, "검색어를 입력해주세요"),
+});
