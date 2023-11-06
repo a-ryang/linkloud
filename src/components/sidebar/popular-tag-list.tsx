@@ -2,13 +2,13 @@
 
 import { Skeleton } from "@mantine/core";
 
-import { useGetTags } from "@/features/tag/api/getTags";
 import { Tag } from "@/features/tag/components";
+import useTags from "@/features/tag/hooks/useTags";
 
 import classes from "./popular-tag-list.module.css";
 
 export default function PopularTagList() {
-  const tagsQuery = useGetTags({ page: 1, size: 15, sortBy: "popularity" });
+  const tagsQuery = useTags({ page: 1, size: 15, sortBy: "popularity" });
 
   if (tagsQuery.isLoading) {
     return <Skeleton m="lg" radius="md" height="300" width="full" />;

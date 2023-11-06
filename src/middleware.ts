@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
 
   if (isNaN(Number(articleId))) {
     const response = NextResponse.redirect(new URL(ROUTER.HOME, request.url));
-    response.cookies.set(COOKIE_ERROR_KEY, "유효하지 않는 링크에요");
+    response.cookies.set(COOKIE_ERROR_KEY, "유효하지 않은 링크에요");
     return response;
   }
 }

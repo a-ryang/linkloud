@@ -10,29 +10,27 @@ export default function useOpenArticle() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
-  const openAritlce = async (id: number) => {
+  const openArticle = async (id: number) => {
     try {
       const { url } = await getArticle(id);
       if (url) {
         window.open(url, "_blank", "noreferrer");
       }
     } catch (e) {
-      if (e instanceof ApiError) {
-        if (e.status === 404) {
-          notifications.show({ message: "유효하지 않는 링크에요", color: "red" });
+      if (e instanceof ApiError && e.status === 404) {
+        notifications.show({ message: "유효하지 않은 링크에요", color: "red" });
 
+        queryClient.invalidateQueries({
+          queryKey: ["articles"],
+        });
+        if (user?.id) {
           queryClient.invalidateQueries({
-            queryKey: ["articles"],
+            queryKey: ["my-articles", user.id],
           });
-          if (user?.id) {
-            queryClient.invalidateQueries({
-              queryKey: ["my-articles", user.id],
-            });
-          }
         }
       }
     }
   };
 
-  return openAritlce;
+  return openArticle;
 }

@@ -4,7 +4,7 @@ import { Book, BookBookmark, BookOpen } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 
 import ROUTER from "@/constants/router";
-import { useUpdateReadStatus } from "@/features/member/api/updateReadStatus";
+import useUpdateReadStatus from "@/features/member/hooks/useUpdateReadStatus";
 
 interface Props {
   articleId: number;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function ArticleReadStatusUpdater({ articleId, userId, isLoggedIn, readStatus }: Props) {
-  const updateReadStatusMutation = useUpdateReadStatus();
+  const { updateReadStatus } = useUpdateReadStatus();
   const router = useRouter();
 
   const handleUpdateReadStatus = (e: React.MouseEvent, readStatus: ArticleReadStatus) => {
@@ -25,7 +25,7 @@ export function ArticleReadStatusUpdater({ articleId, userId, isLoggedIn, readSt
       return;
     }
 
-    updateReadStatusMutation.mutate({
+    updateReadStatus({
       memberId: userId,
       articleId,
       query: { readStatus },

@@ -5,17 +5,17 @@ import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { useSearchArticles } from "../hooks/useSearchArticle";
+import useSearchArticles from "../hooks/useSearchArticle";
 
 import classes from "./search-container.module.css";
 
 import { ArticleList } from ".";
 
-const formatTags = (tags: string | null) => {
+function formatTags(tags: string | null) {
   if (typeof tags === "string") {
     return `[${tags}]`;
   }
-};
+}
 
 export function SearchContainer() {
   const searchParams = useSearchParams();

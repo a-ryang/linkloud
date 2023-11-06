@@ -5,21 +5,18 @@ import { useState } from "react";
 import { ArticleList } from "@/features/article/components";
 import useAuth from "@/features/auth/hooks/useAuth";
 
-import { SortBy, useGetMyArticles } from "../api/getMyArticles";
+import { SortBy } from "../api/getMyArticles";
+import useMyArticles from "../hooks/useMyArticles";
 
 import classes from "./my-articles-secion.module.css";
 import { SortOptions } from "./sort-options";
 
-interface MyArticlesProps {}
+const SIZE = 10;
 
-export function MyArticlesSection({}: MyArticlesProps) {
+export function MyArticlesSection() {
   const [sortBy, setSortBy] = useState<SortBy>("latest");
   const { user } = useAuth();
-  const myArticlesQuery = useGetMyArticles(
-    user.id,
-    { sortBy },
-    { getNextPageParam: (lastPage) => lastPage.nextItemId || undefined, retry: 2 },
-  );
+  const myArticlesQuery = useMyArticles({ memberId: user.id, sortBy, size: SIZE });
 
   return (
     <>

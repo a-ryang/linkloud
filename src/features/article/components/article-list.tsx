@@ -2,10 +2,10 @@
 
 import { useRef } from "react";
 
-import { useGetMyArticles } from "@/features/member/api/getMyArticles";
+import useMyArticles from "@/features/member/hooks/useMyArticles";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 
-import { useGetArticles } from "../api/getArticles";
+import useArticles from "../hooks/useArticles";
 import useOpenArticle from "../hooks/useOpenArticle";
 
 import classes from "./article-list.module.css";
@@ -15,7 +15,7 @@ import { ArticleSkeleton } from "./article-skeloton";
 import { ArticleCard } from ".";
 
 interface Props {
-  query: ReturnType<typeof useGetMyArticles | typeof useGetArticles>;
+  query: ReturnType<typeof useMyArticles | typeof useArticles>;
 }
 
 export function ArticleList({ query }: Props) {
@@ -32,7 +32,7 @@ export function ArticleList({ query }: Props) {
     return <ArticleSkeleton />;
   }
 
-  if (!query.data?.pages[0].items.length) {
+  if (!query.data?.pages.length) {
     return <ArticleNotFound />;
   }
 
@@ -40,13 +40,11 @@ export function ArticleList({ query }: Props) {
 
   return (
     <ul className={classes["card-list"]}>
-      {articleList.map((page) =>
-        page.items.map((item) => (
-          <li key={item.id}>
-            <ArticleCard article={item} onClick={(id) => handleOpenLink(id)} />
-          </li>
-        )),
-      )}
+      {articleList.map((article) => (
+        <li key={article.id}>
+          <ArticleCard article={article} onClick={(id) => handleOpenLink(id)} />
+        </li>
+      ))}
       {query.hasNextPage && <div ref={observeRef} />}
     </ul>
   );

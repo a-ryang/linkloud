@@ -4,7 +4,6 @@ import "@/styles/utils.css";
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Script from "next/script";
 
 import { SITE_CONFIG } from "@/constants/config";
 import Providers from "@/providers/providers";
@@ -58,6 +57,9 @@ export const metadata: Metadata = {
         url: "/favicons/apple-touch-icon.png",
       },
     ],
+  },
+  verification: {
+    google: "mWv2hCfc8QqiegAUU48RFp-Ojxddj2wq0BDOXjPvorQ",
   },
 };
 

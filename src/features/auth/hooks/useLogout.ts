@@ -18,7 +18,9 @@ export default function useLogout() {
 
   return () => {
     logout();
-    queryClient.invalidateQueries(["articles"]);
+    queryClient.invalidateQueries({
+      queryKey: ["articles"],
+    });
     notifications.show({ message: "로그아웃 되었어요" });
     router.push(ROUTER.HOME);
   };
