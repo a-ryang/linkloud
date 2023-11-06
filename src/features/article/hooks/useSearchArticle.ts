@@ -75,22 +75,25 @@ export default function useSearchArticles({ initialTags }: UseSearchArticles) {
     return true;
   }, []);
 
-  const search = useCallback((input: string) => {
-    form.validate();
-    if (!form.isValid()) {
-      return;
-    }
+  const search = useCallback(
+    (input: string) => {
+      form.validate();
+      if (!form.isValid()) {
+        return;
+      }
 
-    const { keyword, tags } = extractTagsAndKeyword(input);
+      const { keyword, tags } = extractTagsAndKeyword(input);
 
-    if (!validate(keyword, tags)) {
-      return;
-    }
+      if (!validate(keyword, tags)) {
+        return;
+      }
 
-    setQuery({ keyword, tags });
-    setKeyword(keyword);
-    setTags(tags);
-  }, []);
+      setQuery({ keyword, tags });
+      setKeyword(keyword);
+      setTags(tags);
+    },
+    [form, validate],
+  );
 
   const extractTagsAndKeyword = (input: string) => {
     const tagPattern = /\[([^\]]+)\]/g;
@@ -111,10 +114,6 @@ export default function useSearchArticles({ initialTags }: UseSearchArticles) {
 
     search(initialTags);
   }, [initialTags, search]);
-
-  useEffect(() => {
-    console.log(form.values);
-  }, [form]);
 
   return { form, keyword, tags, searchQuery, search };
 }
