@@ -109,11 +109,14 @@ export default function useSearchArticles({ initialTags }: UseSearchArticles) {
     return { tags, keyword };
   };
 
+  // URL의 쿼리 파라미터가 변경될 때마다 검색창의 상태를 업데이트
   useEffect(() => {
     if (!initialTags) return;
-
-    search(initialTags);
-  }, [initialTags, search]);
+    const { tags } = extractTagsAndKeyword(initialTags);
+    form.setValues({ input: initialTags });
+    setQuery({ tags: [tags[0]] });
+    setTags(tags);
+  }, [initialTags]);
 
   return { form, keyword, tags, searchQuery, search };
 }
