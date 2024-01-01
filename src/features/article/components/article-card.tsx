@@ -48,6 +48,7 @@ export function ArticleCard({ article, onClick }: Props) {
           rel="noopener noreferrer"
           size="sm"
           className={classes.link}
+          onClick={(e) => e.preventDefault()}
         >
           {article.url}
         </Anchor>
