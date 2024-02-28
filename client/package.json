@@ -17,16 +17,20 @@
     "@mantine/modals": "^7.1.3",
     "@mantine/notifications": "^7.1.3",
     "@phosphor-icons/react": "^2.0.13",
+    "@radix-ui/react-icons": "^1.3.0",
     "@react-oauth/google": "^0.11.1",
     "@tanstack/react-query": "^5.4.3",
     "@tanstack/react-query-devtools": "^5.4.3",
     "axios": "^1.5.1",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "next": "13.5.4",
     "qs": "^6.11.2",
     "react": "^18",
     "react-dom": "^18",
     "react-infinite-scroller": "^1.2.6",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -35,6 +39,7 @@
     "@types/qs": "^6.9.8",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "eslint-config-prettier": "^9.0.0",
@@ -45,6 +50,7 @@
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.8.0",
     "postcss-simple-vars": "^7.0.1",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5"
   }
 }
