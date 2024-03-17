@@ -14,6 +14,7 @@ erDiagram
     auth_social {
         bigint id PK
         bigint user_id FK
+        tinyint type "1: google"
         varchar(64) external_id "notnull"
     }
 
