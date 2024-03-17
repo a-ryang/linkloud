@@ -23,6 +23,9 @@ erDiagram
         varchar(32) title "notnull"
         varchar(64) description "notnull"
         boolean is_public "notnull default:false"
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
     }
 
     user ||--o{ link : userLinks
@@ -37,6 +40,7 @@ erDiagram
         varchar(256) description
         datetime created_at
         datetime updated_at
+        datetime deleted_at
     }
 
     user ||--o{ tag : userTags
