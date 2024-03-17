@@ -26,6 +26,7 @@ erDiagram
     }
 
     user ||--o{ link : userLinks
+    collection ||--o{ link : collectionLinks
 
     link {
         bigint id PK
@@ -46,5 +47,14 @@ erDiagram
         bigint user_id FK
         varchar(32) name
         datetime created_at
+    }
+
+    link ||--o{ link_tag : linkTags
+    tag ||--o{ link_tag : tagLinks
+
+
+    link_tag {
+        bigint link_id FK
+        bigint tag_id FK
     }
 ```
