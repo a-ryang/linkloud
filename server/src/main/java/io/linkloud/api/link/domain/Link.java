@@ -1,5 +1,6 @@
 package io.linkloud.api.link.domain;
 
+import io.linkloud.api.common.service.port.ClockHolder;
 import io.linkloud.api.user.domain.User;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -22,15 +23,15 @@ public class Link {
     private LocalDateTime deletedAt;
 
     // TODO :  수정,삭제 시간, collectionId = Null 임
-    public static Link from(LinkCreate linkCreate, User user) {
+    public static Link from(LinkCreate linkCreate, User user, ClockHolder clockHolder) {
         return Link.builder()
             .userId(user.getId())
             .collectionId(null)
             .url(linkCreate.getUrl())
             .name(linkCreate.getName())
             .description(linkCreate.getDescription())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(null)
+            .createdAt(clockHolder.getCurrentTime())
+            .updatedAt(clockHolder.getCurrentTime())
             .deletedAt(null)
             .build();
     }

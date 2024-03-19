@@ -1,5 +1,6 @@
 package io.linkloud.api.link.service;
 
+import io.linkloud.api.common.service.port.ClockHolder;
 import io.linkloud.api.link.domain.Link;
 import io.linkloud.api.link.domain.LinkCreate;
 import io.linkloud.api.link.service.port.LinkRepository;
@@ -15,7 +16,7 @@ public class LinkService {
 
     private final LinkRepository linkRepository;
     private final UserRepository userRepository;
-
+    private final ClockHolder clockHolder;
 
     @Transactional
     public Link create(LinkCreate linkCreate) {
@@ -23,7 +24,7 @@ public class LinkService {
         User user = userRepository.findById(linkCreate.getUserId())
             .orElseThrow(() -> new RuntimeException("유저 찾기 에러"));
 
-        Link link = Link.from(linkCreate,user);
+        Link link = Link.from(linkCreate,user,clockHolder);
 
         link = linkRepository.save(link);
         return link;
