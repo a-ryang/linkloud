@@ -1,4 +1,4 @@
-package io.linkloud.api.error;
+package io.linkloud.api.shared.exception;
 
 import org.springframework.http.HttpStatus;
 
