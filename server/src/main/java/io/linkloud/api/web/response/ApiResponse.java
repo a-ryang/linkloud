@@ -1,4 +1,4 @@
-package io.linkloud.api.web.dto;
+package io.linkloud.api.web.response;
 
 public class ApiResponse<T> {
 

@@ -2,7 +2,7 @@ package io.linkloud.api.web.handler;
 
 import io.linkloud.api.shared.exception.BusinessException;
 import io.linkloud.api.shared.exception.ErrorType;
-import io.linkloud.api.web.dto.ApiResponse;
+import io.linkloud.api.web.response.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

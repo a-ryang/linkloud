@@ -1,4 +1,4 @@
-package io.linkloud.api.common.service.port;
+package io.linkloud.api.shared.clock;
 
 import java.time.LocalDateTime;
 

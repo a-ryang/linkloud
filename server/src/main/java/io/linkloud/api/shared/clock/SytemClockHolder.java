@@ -1,6 +1,6 @@
-package io.linkloud.api.common.infrastructure;
+package io.linkloud.api.shared.clock;
 
-import io.linkloud.api.common.service.port.ClockHolder;
+import io.linkloud.api.shared.clock.ClockHolder;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
