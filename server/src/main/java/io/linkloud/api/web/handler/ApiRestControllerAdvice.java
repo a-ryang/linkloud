@@ -1,9 +1,10 @@
 package io.linkloud.api.web.handler;
 
-import io.linkloud.api.error.BusinessException;
-import io.linkloud.api.error.ErrorType;
+import io.linkloud.api.shared.exception.BusinessException;
+import io.linkloud.api.shared.exception.ErrorType;
 import io.linkloud.api.web.dto.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-@Slf4j
 @RestControllerAdvice
 public class ApiRestControllerAdvice {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException exception) {

@@ -1,10 +1,5 @@
 package io.linkloud.api.shared.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
 public enum ErrorType {
 
     INTERNAL_SERVER_ERROR("E_500", "Internal server error"),
@@ -17,5 +12,18 @@ public enum ErrorType {
 
     private final String code;
     private final String message;
+
+    ErrorType(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
 }

@@ -1,8 +1,5 @@
 package io.linkloud.api.web.dto;
 
-import lombok.Getter;
-
-@Getter
 public class ApiResponse<T> {
 
     private final String code;
@@ -31,6 +28,18 @@ public class ApiResponse<T> {
      */
     public static ApiResponse<Void> fail(String code, String message) {
         return new ApiResponse(code, message, null);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public T getData() {
+        return data;
     }
 
 }
